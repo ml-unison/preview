@@ -1,0 +1,88 @@
+// Unidad 1 · ¿Qué significa aprender de datos?
+// Generado por herramientas/exportar_quizzes.py — no editar a mano
+
+$CATEGORY: $course$/Reconocimiento de Patrones/Unidad 1 · ¿Qué significa aprender de datos?
+
+::u01-p01::[html]¿En cuál de estas situaciones <strong>tiene menos sentido</strong> usar aprendizaje automático? {
+	=Calcular el impuesto de una factura a partir de una tasa fija establecida por ley.#Hay una regla explícita y conocida; programarla directamente es más simple y exacto.
+	~Estimar el almacenamiento de una presa a partir de lluvias y extracciones históricas.#Existe un patrón, es difícil de describir analíticamente y hay datos históricos.
+	~Detectar correos fraudulentos a partir de miles de ejemplos etiquetados.#Es un caso clásico de clasificación supervisada.
+	~Agrupar perfiles de estudiantes según su trayectoria académica.#Es un problema no supervisado razonable.
+	####Aprender tiene sentido cuando (1) existe un patrón, (2) no sabemos describirlo analíticamente y (3) tenemos datos. En el cálculo del impuesto falla la condición (2).
+}
+
+::u01-p02::[html]Sea \\(\\ell\\) una función de pérdida y \\(\\mathcal\{D\}\=\\\{(\\mathbf\{x\}_i,y_i)\\\}_\{i\=1\}^n\\) una muestra. ¿Cuál expresión corresponde al <strong>riesgo empírico</strong> \\(E_\{\\text\{in\}\}(h)\\)? {
+	~\\(\\mathbb\{E\}_\{(\\mathbf\{x\},y)\\sim P\}\\left[\\ell(h(\\mathbf\{x\}),y)\\right]\\)#Ese es el riesgo verdadero \\(E_\{\\text\{out\}\}(h)\\); depende de \\(P\\), que no conocemos.
+	=\\(\\frac\{1\}\{n\}\\sum_\{i\=1\}^n \\ell(h(\\mathbf\{x\}_i),y_i)\\)
+	~\\(\\min_\{h\\in\\mathcal\{H\}\} \\sum_\{i\=1\}^n \\ell(h(\\mathbf\{x\}_i),y_i)\\)#Ese es el valor óptimo del problema ERM, no el riesgo de una \\(h\\) dada.
+	~\\(\\Pr\\left[\\,|E_\{\\text\{in\}\}(h)-E_\{\\text\{out\}\}(h)|&gt;\\epsilon\\,\\right]\\)#Esa es la probabilidad que acota la desigualdad de Hoeffding.
+}
+
+::u01-p03::[html]Si un modelo obtiene \\(E_\{\\text\{in\}\} \= 0\\) en el conjunto de entrenamiento, entonces su error fuera de muestra también será pequeño. {F####Falso. En el experimento con polinomios, el de grado 12 interpola casi todos los puntos (\\(E_\{\\text\{in\}\}\\approx 0\\)) y su \\(E_\{\\text\{out\}\}\\) es enorme\: está <strong>sobreajustado</strong>.}
+
+::u01-p04::[html]Un clasificador comete errores en 3 de 20 ejemplos de entrenamiento. Con la pérdida 0–1, ¿cuánto vale \\(E_\{\\text\{in\}\}\\)? (escribe un decimal) {#0.15:0.001####\\(E_\{\\text\{in\}\} \= \\frac\{1\}\{20\}\\sum_i \\mathbb\{1\}[h(\\mathbf\{x\}_i)\\ne y_i] \= 3/20 \= 0.15\\).}
+
+::u01-p05::[html]Dos modelos tienen el mismo error en los datos de entrenamiento. Uno es un polinomio de grado 3 y el otro de grado 12. Según la navaja de Occam, ¿cuál conviene preferir y por qué? {
+	~El de grado 12, porque puede representar más funciones.#Poder representar más funciones también significa poder ajustarse al ruido.
+	=El de grado 3, porque al ser más simple es menos probable que su buen ajuste se deba al ruido.
+	~Da igual, porque tienen el mismo error de entrenamiento.#El error de entrenamiento no es lo que nos importa; nos importa el error en datos nuevos.
+	~El de grado 12, porque los modelos complejos siempre generalizan mejor con más datos.#Con muchos datos un modelo complejo puede funcionar bien, pero aquí ambos explican igual lo observado.
+	####Un modelo simple no puede ajustarse a cualquier cosa; si aun así se ajusta a los datos, es más probable que haya capturado el patrón. Simple no significa simplista\: un modelo demasiado simple tampoco sirve.
+}
+
+::u01-p06::[html]Un programa que guarda en una tabla todos los ejemplos de entrenamiento y responde buscando el ejemplo idéntico tiene \\(E_\{\\text\{in\}\} \= 0\\), así que es un buen modelo. {F####Falso. Memorizar da error cero en los datos vistos, pero ante un caso nuevo el programa no tiene nada que decir. Lo que importa es \\(E_\{\\text\{out\}\}\\)\: generalizar, no memorizar.}
+
+::u01-p07::[html]¿Cuáles de estos pasos deben ajustarse <strong>solo</strong> con los datos de entrenamiento para evitar fuga de información? {
+	~%33.3333%Calcular la media y la desviación estándar para estandarizar.
+	~%33.3333%Imputar valores faltantes con la mediana de cada columna.
+	~%33.3333%Elegir las categorías de una codificación <em>one-hot</em>.
+	~%-100%Convertir una columna de texto <code>"2024-05-01"</code> a tipo fecha.#Es una transformación determinista que no aprende parámetros de los datos.
+	####Todo paso que <strong>estima parámetros</strong> a partir de los datos (medias, medianas, vocabularios…) debe ajustarse con el conjunto de entrenamiento. Un <code>Pipeline</code> de scikit-learn lo garantiza.
+}
+
+::u01-p08::[html]Estás seleccionando entre 30 configuraciones de un modelo. ¿Qué conjunto debes usar para <strong>compararlas</strong>? {
+	~El conjunto de prueba, porque es el más parecido a producción.#Si eliges con el conjunto de prueba, su error deja de ser una estimación honesta de \\(E_\{\\text\{out\}\}\\).
+	=Validación (un conjunto aparte o validación cruzada sobre el de entrenamiento).
+	~El conjunto de entrenamiento completo, comparando \\(E_\{\\text\{in\}\}\\).#\\(E_\{\\text\{in\}\}\\) favorece a los modelos más complejos; no detecta el sobreajuste.
+	~Cualquiera; con 30 configuraciones la diferencia es despreciable.#Con más configuraciones, el sesgo de selección es <strong>mayor</strong>, no menor.
+}
+
+::u01-p09::[html]¿A qué paradigma corresponde entrenar un modelo para predecir la siguiente palabra de un texto, usando millones de textos <strong>sin etiquetar a mano</strong>? {
+	~Aprendizaje no supervisado clásico (agrupamiento).
+	=Aprendizaje auto-supervisado.
+	~Aprendizaje por refuerzo.
+	~Aprendizaje supervisado con etiquetas humanas.
+	####Las "etiquetas" (la siguiente palabra) se obtienen de los propios datos. Es la base del preentrenamiento de los modelos de lenguaje (Unidad 6).
+}
+
+::u01-p10::[html]Si eliminamos de los datos la columna "sexo", un modelo de crédito ya no puede producir decisiones con sesgo de sexo. {F####Falso. Otras variables (ocupación, historial, patrones de compra…) pueden estar correlacionadas con el atributo eliminado y funcionar como <strong>variables sustitutas</strong> (<em>proxies</em>).}
+
+::u01-p11::[html]Al leer un archivo, <code>df.info()</code> muestra que la columna <code>fecha</code> es de tipo <code>object</code> (texto). ¿Qué problema tiene dejarla así? {
+	~Ninguno; pandas convierte el texto a fecha cuando hace falta.#pandas no lo hace automáticamente al agrupar u ordenar.
+	=No se puede extraer el mes ni agrupar por periodos, y el orden es alfabético, no cronológico.
+	~Ocupa más memoria, pero los cálculos son correctos.#El problema no es la memoria; muchas operaciones con fechas no funcionan o dan resultados equivocados.
+	~Solo es un problema si la columna tiene valores faltantes.
+	####Hay que convertirla con <code>pd.to_datetime</code>. Con texto, "2020/10/01" queda antes que "2020/2/01" y no existen <code>.dt.month</code> ni <code>resample</code>.
+}
+
+::u01-p12::[html]En una serie de registros diarios, si <code>df.isna().sum()</code> da cero en todas las columnas, entonces no faltan datos. {F####Falso. Un día sin registro no aparece como <code>NaN</code>\: simplemente no está la fila. Hay que comparar contra el rango completo de fechas, por ejemplo con <code>reindex(pd.date_range(...))</code>.}
+
+::u01-p13::[html]Unes una tabla de 11,533 registros diarios con un catálogo de presas usando <code>merge</code> por la clave de la presa. El resultado tiene 12,800 filas. ¿Qué pasó? {
+	~Nada raro; <code>merge</code> siempre agrega filas.#Una unión izquierda contra un catálogo con claves únicas conserva el número de filas.
+	=Alguna clave aparece más de una vez en el catálogo, y sus registros se duplicaron.
+	~Había valores faltantes en la columna de almacenamiento.#Los faltantes en otras columnas no cambian el número de filas de la unión.
+	~pandas agregó filas para las fechas faltantes.#<code>merge</code> no inventa fechas; eso lo haría un <code>reindex</code>.
+	####Si una clave está repetida en la tabla derecha, cada registro de la izquierda con esa clave se multiplica. Por eso conviene usar <code>validate\="many_to_one"</code> y comparar el número de filas antes y después.
+}
+
+::u01-p14::[html]En un conjunto de datos de casas, la columna "calidad de la cocina" toma los valores <em>Excelente</em>, <em>Buena</em>, <em>Regular</em> y <em>Mala</em>. ¿Qué codificación es más adecuada para un modelo lineal? {
+	~One-hot, porque es una variable categórica.#Funciona, pero desperdicia el orden natural de las categorías.
+	=Ordinal (Mala \= 0, Regular \= 1, Buena \= 2, Excelente \= 3), porque las categorías tienen un orden.
+	~Dejarla como texto; el modelo aprende el orden solo.#Los modelos de scikit-learn requieren números.
+	~Eliminarla, porque las variables categóricas no aportan información.
+	####Cuando las categorías tienen un orden con sentido, una codificación ordinal conserva esa información en una sola columna. One-hot es la opción para categorías <strong>sin</strong> orden (barrio, color, tipo de techo).
+}
+
+::u01-p15::[html]En el conjunto de casas, la columna "calidad de la alberca" tiene 99 % de valores faltantes, así que lo correcto es imputarlos con la categoría más frecuente. {F####Falso. Ahí el faltante <strong>significa algo</strong>\: la casa no tiene alberca. Lo correcto es codificarlo como su propia categoría ("sin alberca"). Antes de imputar hay que preguntarse por qué falta el dato.}
+
+::u01-p16::[html]Estandarizas una columna con media 50 y desviación estándar 4, calculadas en el conjunto de entrenamiento. ¿Qué valor queda para un ejemplo de prueba con valor 58? {#2:0.001####\\(z \= (58 - 50)/4 \= 2\\). La media y la desviación son las del <strong>entrenamiento</strong>\: el conjunto de prueba se transforma con los mismos parámetros, nunca con los suyos.}

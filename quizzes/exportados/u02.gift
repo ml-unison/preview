@@ -1,0 +1,69 @@
+// Unidad 2 · Aprendizaje no supervisado
+// Generado por herramientas/exportar_quizzes.py — no editar a mano
+
+$CATEGORY: $course$/Reconocimiento de Patrones/Unidad 2 · Aprendizaje no supervisado
+
+::u02-p01::[html]En el algoritmo de Lloyd (k-medias), con la asignación de los puntos fija, ¿qué valor de \\(\\mu_j\\) minimiza \\(\\sum_\{c(i)\=j\} \\lVert \\mathbf\{x\}_i - \\mu_j \\rVert^2\\)? {
+	=La media de los puntos asignados al grupo \\(j\\).#Al igualar el gradiente a cero se obtiene \\(\\mu_j \= \\bar\{\\mathbf\{x\}\}_j\\).
+	~La mediana, coordenada por coordenada, de los puntos del grupo \\(j\\).#La mediana minimiza la suma de distancias absolutas (\\(\\ell_1\\)), no la de cuadrados. Eso da el algoritmo de k-medianas.
+	~El punto del grupo \\(j\\) más cercano al centro anterior.#Restringir el centro a ser un dato da k-medoides, que no minimiza la suma de cuadrados.
+	~El centro anterior, porque el paso de asignación ya minimizó \\(J\\).#La asignación minimiza \\(J\\) con los centros fijos; mover los centros puede bajar \\(J\\) todavía más.
+	####\\(\\nabla_\{\\mu_j\} \\sum_\{c(i)\=j\} \\lVert \\mathbf\{x\}_i - \\mu_j \\rVert^2 \= -2 \\sum_\{c(i)\=j\} (\\mathbf\{x\}_i - \\mu_j) \= 0 \\Rightarrow \\mu_j \= \\frac\{1\}\{n_j\}\\sum_\{c(i)\=j\} \\mathbf\{x\}_i\\).
+}
+
+::u02-p02::[html]Si se corre k-medias hasta que converja, el resultado es el agrupamiento con la menor suma de distancias al cuadrado \\(J\\) entre todos los posibles. {F####Falso. k-medias converge a un <strong>mínimo local</strong>\: un punto donde ni reasignar ni mover centros mejora \\(J\\). Con nueve grupos en rejilla, 50 de 60 inicios al azar quedaron atrapados. Por eso se usan k-medias++ y varias inicializaciones (<code>n_init</code>).}
+
+::u02-p03::[html]Graficas la inercia \\(J\\) de k-medias para \\(k \= 1, 2, \\dots, 10\\). ¿Por qué no basta con elegir el \\(k\\) de menor \\(J\\)? {
+	=Porque \\(J\\) nunca aumenta al aumentar \\(k\\); con \\(k \= n\\) vale cero.
+	~Porque \\(J\\) depende de la inicialización y cambia en cada corrida.#Es cierto que depende del inicio, pero con varias corridas eso se controla. El problema de fondo es otro.
+	~Porque \\(J\\) solo se puede calcular cuando se conocen las etiquetas verdaderas.#\\(J\\) es un criterio interno; solo usa los datos y los centros.
+	~Porque \\(J\\) crece con \\(k\\) y el mínimo siempre está en \\(k \= 1\\).#Es al revés, \\(J\\) baja al aumentar \\(k\\).
+	####Más centros siempre permiten acercarse más a los datos. Para elegir \\(k\\) se buscan criterios que castiguen la complejidad (el «codo», la silueta, o BIC en mezclas) y, sobre todo, se piensa para qué se quieren los grupos.
+}
+
+::u02-p04::[html]Un punto tiene distancia media \\(a \= 2\\) a los demás puntos de su grupo y distancia media \\(b \= 5\\) a los puntos del grupo vecino más cercano. ¿Cuánto vale su silueta \\(s \= (b - a)/\\max(a, b)\\)? {#0.6:0.001####\\(s \= (5 - 2)/5 \= 0.6\\). Un valor cercano a 1 indica que el punto está bien dentro de su grupo; cerca de 0, que está en la frontera; negativo, que quizá está en el grupo equivocado.}
+
+::u02-p05::[html]Tienes dos medias lunas entrelazadas (como en la presentación). ¿Qué método tiene más posibilidades de separarlas bien? {
+	=DBSCAN con un radio \\(\\varepsilon\\) adecuado.#DBSCAN une regiones densas en cadena, sin importar su forma.
+	~k-medias con \\(k \= 2\\) y muchas inicializaciones.#Más inicializaciones no cambian la forma de las fronteras de k-medias, que siempre son rectas (regiones de Voronoi).
+	~Una mezcla gaussiana de dos componentes con covarianza completa.#Cada componente es una elipse; una media luna no es una elipse.
+	~Jerárquico con enlace de Ward.#Ward minimiza la misma suma de cuadrados que k-medias y prefiere grupos compactos y redondos.
+	####Las formas no convexas son el caso favorable de DBSCAN (y del enlace simple, que también encadena). Los métodos basados en centros o en elipses suponen grupos compactos.
+}
+
+::u02-p06::[html]En agrupamiento jerárquico aglomerativo, ¿qué criterio de enlace tiende a producir el efecto de <strong>encadenamiento</strong>, en el que dos grupos lejanos se unen por una fila de puntos intermedios? {
+	=Simple (distancia entre el par de puntos más cercano).
+	~Completo (distancia entre el par más lejano).#El enlace completo hace lo contrario\: penaliza los grupos extendidos.
+	~Promedio.#El promedio de todos los pares es un punto intermedio; encadena mucho menos que el simple.
+	~Ward.#Ward prefiere grupos compactos, como k-medias.
+	####Con el enlace simple basta <strong>un</strong> par de puntos cercanos para unir dos grupos. En la libreta 1, con los clientes, el enlace simple deja casi todo en un solo grupo.
+}
+
+::u02-p07::[html]En una mezcla gaussiana, la responsabilidad \\(\\gamma_\{ik\}\\) es la probabilidad de que el punto \\(\\mathbf\{x\}_i\\) haya sido generado por la componente \\(k\\), dado el valor observado de \\(\\mathbf\{x\}_i\\). {T####Verdadero. Por la regla de Bayes, \\(\\gamma_\{ik\} \= \\pi_k \\mathcal\{N\}(\\mathbf\{x\}_i \\mid \\mu_k, \\Sigma_k) / \\sum_j \\pi_j \\mathcal\{N\}(\\mathbf\{x\}_i \\mid \\mu_j, \\Sigma_j)\\). Para cada punto, las responsabilidades suman 1.}
+
+::u02-p08::[html]¿Qué garantiza el algoritmo EM en cada iteración? {
+	=Que la log-verosimilitud de los datos no disminuye.#El paso E hace exacta una cota inferior y el paso M la maximiza; por eso la log-verosimilitud no baja.
+	~Que alcanza el máximo global de la verosimilitud.#Solo garantiza no bajar; puede terminar en un máximo local. Con otro inicio, los pingüinos terminan en \\(\\ell \= -862\\) en vez de \\(-822\\).
+	~Que la suma de distancias al cuadrado \\(J\\) disminuye estrictamente.#\\(J\\) es el criterio de k-medias; EM optimiza la verosimilitud de la mezcla.
+	~Que las responsabilidades se vuelven 0 o 1.#Eso pasa solo en el caso límite \\(\\Sigma_k \= \\sigma^2 I\\) con \\(\\sigma \\to 0\\), que da k-medias.
+}
+
+::u02-p09::[html]¿Cuántos parámetros libres tiene <strong>una</strong> matriz de covarianza completa en \\(d \= 4\\) dimensiones? {#10:0####Una covarianza es simétrica\: \\(d(d+1)/2 \= 4 \\cdot 5/2 \= 10\\) parámetros. Con \\(d \= 100\\) serían 5,050 por componente; por eso a veces se prefieren covarianzas diagonales o compartidas.}
+
+::u02-p10::[html]Aplicas PCA a los pingüinos con el pico y la aleta en milímetros y la masa en gramos, <strong>sin estandarizar</strong>. La primera componente explica el 99.99 % de la varianza. ¿Qué concluyes? {
+	=La primera componente es prácticamente la masa, porque en gramos su varianza es enorme comparada con las demás.
+	~Los datos son casi unidimensionales y basta una componente.#La conclusión depende de las unidades. Estandarizadas, la primera componente explica 69 %.
+	~Las cuatro medidas están casi perfectamente correlacionadas.#No se puede concluir eso\: una sola variable de gran varianza domina aunque no esté correlacionada con las otras.
+	~PCA falló porque los datos no están centrados.#PCA siempre centra los datos; el problema es la escala, no la media.
+	####PCA busca direcciones de máxima varianza, y la varianza depende de las unidades. Si las variables están en escalas distintas y no hay una razón para preferir unas, se estandarizan.
+}
+
+::u02-p11::[html]En los dígitos de \\(8 \\times 8\\) (64 dimensiones), ¿cuántas componentes principales se necesitan como mínimo para conservar el 90 % de la varianza? {#21:0####Con 20 componentes se conserva el 89.4 % y con 21, el 90.3 %. Lo calculas en la libreta 3 y en el Laboratorio 2.}
+
+::u02-p12::[html]En una proyección t-SNE, el grupo de los ceros aparece el doble de grande y muy lejos del grupo de los unos. ¿Qué puedes concluir? {
+	=Casi nada sobre tamaños ni distancias; t-SNE conserva vecindarios locales, no escalas globales.
+	~Que en el espacio original los ceros son más variables que los unos.#t-SNE tiende a igualar el tamaño de los grupos; dos nubes con dispersión 8 veces distinta salen casi iguales.
+	~Que los ceros y los unos son los dígitos más distintos entre sí.#Las distancias entre grupos en t-SNE no tienen una interpretación fiable.
+	~Que la perplejidad es demasiado baja.#La perplejidad cambia el dibujo, pero esta observación no permite diagnosticarla.
+	####Ver Wattenberg, Viégas y Johnson, «How to Use t-SNE Effectively» (Distill, 2016). Lo que sí es razonable leer en un t-SNE es qué puntos quedan juntos.
+}

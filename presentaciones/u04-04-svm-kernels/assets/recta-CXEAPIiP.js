@@ -1,0 +1,1 @@
+function e(e,t,n,[r,i,a,o]){let s=[];if(Math.abs(e[1])>1e-12)for(let c of[r,i]){let r=(n-t-e[0]*c)/e[1];r>=a-1e-9&&r<=o+1e-9&&s.push([c,r])}if(Math.abs(e[0])>1e-12)for(let c of[a,o]){let a=(n-t-e[1]*c)/e[0];a>=r-1e-9&&a<=i+1e-9&&s.push([a,c])}return s.length>=2?[s[0],s[s.length-1]]:null}export{e as t};

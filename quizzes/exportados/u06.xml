@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Reconocimiento de Patrones/Unidad 6 · Redes neuronales</text>
+    </category>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p01</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una red con salida &lt;em&gt;softmax&lt;/em&gt; y pérdida de entropía cruzada, \(E = -\sum_k y_k \log \hat y_k\) con \(\mathbf{y}\) en &lt;em&gt;one-hot&lt;/em&gt;, ¿cuánto vale el error de la capa de salida \(\boldsymbol\delta^{(L)} = \partial E / \partial \mathbf{z}^{(L)}\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Como \(\log \hat y_k = z_k - \log\sum_j e^{z_j}\), se obtiene \(\partial E/\partial z_i = \hat y_i - y_i\): «predicción menos dato», igual que en la regresión logística.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(\hat{\mathbf{y}} - \mathbf{y}\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\((\hat{\mathbf{y}} - \mathbf{y}) \odot \hat{\mathbf{y}} \odot (1 - \hat{\mathbf{y}})\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ése sería el resultado con pérdida cuadrática y salidas sigmoides; con entropía cruzada el factor de la derivada se cancela.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(-\mathbf{y} / \hat{\mathbf{y}}\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ésa es la derivada respecto de \(\hat{\mathbf{y}}\), no respecto de \(\mathbf{z}^{(L)}\); falta aplicar la regla de la cadena a través de la &lt;em&gt;softmax&lt;/em&gt;.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(W^{(L)\top}(\hat{\mathbf{y}} - \mathbf{y})\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Multiplicar por \(W^{(L)\top}\) es el paso que lleva el error a la capa anterior, no el error de la capa de salida.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u06-p02</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una red de dos capas tiene 64 entradas, 64 neuronas ocultas y 10 salidas, con sesgos en ambas capas. ¿Cuántas evaluaciones de la pérdida necesita la verificación del gradiente completo con diferencias &lt;strong&gt;centradas&lt;/strong&gt;?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Hay \(64 \times 64 + 64 + 64 \times 10 + 10 = 4{,}810\) parámetros y la diferencia centrada evalúa \(E(\theta + h)\) y \(E(\theta - h)\) para cada uno: \(9{,}620\) evaluaciones. La retropropagación obtiene el mismo gradiente con una pasada hacia adelante y una hacia atrás.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>9620</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u06-p03</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una red de diez capas ocultas &lt;strong&gt;sin funciones de activación&lt;/strong&gt; (\(\sigma(z) = z\)) puede representar fronteras de decisión que una regresión &lt;em&gt;softmax&lt;/em&gt; no puede representar.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. La composición de funciones afines es afín: \(W^{(2)}(W^{(1)}\mathbf{x} + \mathbf{b}^{(1)}) + \mathbf{b}^{(2)} = W\mathbf{x} + \mathbf{b}\), y lo mismo con cualquier número de capas. Sin no linealidad, la red es una regresión &lt;em&gt;softmax&lt;/em&gt; con otra parametrización.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p04</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una red profunda con activaciones ReLU, cada capa tiene \(n_{\text{in}} = 256\) entradas. ¿Qué varianza de los pesos iniciales mantiene aproximadamente constante la escala de las activaciones de capa en capa?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\mathrm{Var}(z) = n_{\text{in}}\,\mathrm{Var}(w)\,\mathbb{E}[a^2]\) y con ReLU \(\mathbb{E}[a^2] = \tfrac12\mathrm{Var}(z_{\text{anterior}})\). Para que el factor sea 1 hace falta \(\mathrm{Var}(w) = 2/n_{\text{in}}\) (He et al., 2015).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(2/256\) (inicialización de He)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(1/256\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con ReLU la mitad de las entradas se anulan, \(\mathbb{E}[\mathrm{ReLU}(z)^2] = \tfrac12\mathrm{Var}(z)\); con \(1/n_{\text{in}}\) la varianza se divide entre 2 en cada capa.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(1\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con \(\mathrm{Var}(w) = 1\), cada capa multiplica la varianza por \(n_{\text{in}}/2 = 128\): las activaciones explotan.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(0.01^2\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con pesos tan chicos el factor por capa es \(256 \times 10^{-4}/2 \approx 0.013\): la señal desaparece en unas cuantas capas.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u06-p05</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Con minilotes de tamaño \(B = 16\), el error cuadrático medio del gradiente del minilote, \(\mathbb{E}\lVert\mathbf{g}_B - \mathbf{g}\rVert^2\), vale 12. Si los índices se toman independientes, ¿cuánto vale con \(B = 64\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\mathbb{E}\lVert\mathbf{g}_B - \mathbf{g}\rVert^2 = \sigma^2/B\): multiplicar \(B\) por 4 divide el ruido entre 4, \(12/4 = 3\). Ojo: la desviación estándar solo baja a la mitad, por eso agrandar el minilote rinde cada vez menos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>3</text>
+      <tolerance>0.01</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p06</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En un cuadrático con número de condición \(\kappa = 100\), el descenso por gradiente con la mejor tasa converge con factor \((\kappa-1)/(\kappa+1) \approx 0.98\) por paso. ¿Qué factor logra el método de la bola pesada con \(\eta\) y \(\beta\) óptimos?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Con raíces complejas, el error en cada dirección decae como \(\sqrt{\beta}\). Ajustando \(\eta\) y \(\beta\) para que todo el espectro quede en esa zona, \(\sqrt{\beta} = (\sqrt{\kappa}-1)/(\sqrt{\kappa}+1)\): el número de iteraciones crece como \(\sqrt{\kappa}\) y ya no como \(\kappa\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\((\sqrt{\kappa}-1)/(\sqrt{\kappa}+1) \approx 0.82\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(0.98^2 \approx 0.96\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El momento no equivale a dar dos pasos de gradiente; cambia la dependencia de \(\kappa\) a \(\sqrt{\kappa}\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\beta = 0.9\), sin importar \(\kappa\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La tasa es \(\sqrt{\beta}\), y el \(\beta\) óptimo depende de \(\kappa\): \(\sqrt{\beta} = (\sqrt{\kappa}-1)/(\sqrt{\kappa}+1)\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El mismo, 0.98; el momento solo reduce el ruido.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;En un problema determinista, sin ruido, el momento sí acelera.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p07</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En Adam, \(\mathbf{m}_t = \beta_1\mathbf{m}_{t-1} + (1-\beta_1)\mathbf{g}_t\) con \(\mathbf{m}_0 = 0\). Si todos los gradientes tienen esperanza \(\mathbb{E}[\mathbf{g}]\), ¿cuánto vale \(\mathbb{E}[\mathbf{m}_t]\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\mathbf{m}_t = (1-\beta_1)\sum_{i=1}^t\beta_1^{t-i}\mathbf{g}_i\), y la suma geométrica da \(1-\beta_1^t\). Por eso Adam usa \(\hat{\mathbf{m}}_t = \mathbf{m}_t/(1-\beta_1^t)\), y lo mismo con \(\mathbf{v}_t\) y \(\beta_2\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\((1-\beta_1^t)\,\mathbb{E}[\mathbf{g}]\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\mathbb{E}[\mathbf{g}]\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso sería cierto si \(\mathbf{m}_0\) fuera \(\mathbb{E}[\mathbf{g}]\); al empezar en cero, el promedio está sesgado hacia cero.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\beta_1^t\,\mathbb{E}[\mathbf{g}]\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Suma la serie geométrica: \((1-\beta_1)\sum_{i=1}^t \beta_1^{t-i} = 1 - \beta_1^t\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\mathbb{E}[\mathbf{g}]/(1-\beta_1)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Esa es la velocidad límite de la bola pesada, no la del promedio exponencial de Adam.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u06-p08</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Con &lt;em&gt;dropout&lt;/em&gt; invertido (el de PyTorch), al pasar el modelo a evaluación hay que multiplicar los pesos por \(1-p\) para que la escala de las activaciones sea la misma que en el entrenamiento.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. El &lt;em&gt;dropout&lt;/em&gt; invertido divide entre \(1-p\) &lt;strong&gt;durante el entrenamiento&lt;/strong&gt;, así que \(\mathbb{E}[\tilde{\mathbf{a}}] = \mathbf{a}\) y en evaluación la red se usa tal cual. Multiplicar por \(1-p\) es lo que hacía la versión original, que no escalaba al entrenar.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u06-p09</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una capa convolucional recibe un mapa de \(32 \times 32\) con 64 canales y aplica 128 filtros de \(3 \times 3\) (con sesgo). ¿Cuántos parámetros tiene?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Cada filtro abarca todos los canales de entrada: \(64 \cdot 3 \cdot 3 = 576\) pesos más un sesgo. Con 128 filtros: \((576 + 1) \cdot 128 = 73{,}856\). El tamaño del mapa (\(32 \times 32\)) no interviene.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>73856</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p10</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una imagen de \(28 \times 28\) pasa por una convolución de \(5 \times 5\) con relleno 2 y paso 2. ¿De qué tamaño es el mapa de salida?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(n_{\text{sal}} = \lfloor (n + 2p - k)/s \rfloor + 1 = \lfloor (28 + 4 - 5)/2 \rfloor + 1 = 13 + 1 = 14\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(14 \times 14\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(12 \times 12\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso sería sin relleno: \(\lfloor (28 - 5)/2 \rfloor + 1 = 12\). Con relleno 2 la cuenta es \(\lfloor (28 + 4 - 5)/2 \rfloor + 1\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(28 \times 28\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El relleno 2 conservaría el tamaño con paso 1, pero aquí el paso es 2.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(24 \times 24\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es \(28 - 5 + 1\): ignora tanto el relleno como el paso.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u06-p11</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una capa convolucional seguida de &lt;em&gt;max-pooling&lt;/em&gt; de \(2 \times 2\) con paso 2 es exactamente invariante a cualquier traslación de un pixel de la imagen de entrada.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. La convolución es equivariante (el mapa se mueve con la imagen) y el &lt;em&gt;max-pooling&lt;/em&gt; solo da una invariancia aproximada: si el máximo de un bloque cruza la frontera hacia el bloque vecino, la salida cambia. En la libreta, tras dos &lt;em&gt;poolings&lt;/em&gt; la representación todavía cambia un 14 % al mover la imagen un pixel.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p12</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En EuroSAT, con 10 imágenes etiquetadas por clase, una regresión logística sobre los atributos de una ResNet-18 entrenada en ImageNet acertó el 77 % de las veces; una red pequeña entrenada desde cero con las mismas imágenes, el 55 %. ¿Cuál es la mejor explicación?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Es transferencia: los atributos aprendidos con millones de imágenes de otro problema son una buena representación inicial. Con pocas etiquetas, eso vale más que una arquitectura entrenada solo con los datos nuevos. El precio es heredar también los sesgos de los datos de origen.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Las capas de la red preentrenada ya aprendieron rasgos generales de imágenes (bordes, texturas, patrones) que también describen el uso de suelo, y con 100 imágenes no se pueden aprender desde cero.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;ImageNet contiene imágenes de satélite de las mismas 10 clases.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;ImageNet son fotografías de objetos cotidianos (animales, vehículos, alimentos…); la red nunca vio estas imágenes de satélite.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;La regresión logística es un clasificador más flexible que una red convolucional.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es al revés, la logística es lineal. La diferencia está en los atributos sobre los que se ajusta.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;La red desde cero tiene más parámetros que la ResNet-18.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La red desde cero tiene unos 24,000 parámetros; la ResNet-18, unos 11.7 millones.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u06-p13</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Un modelo de lenguaje de caracteres tiene, en validación, una entropía cruzada promedio de 1.36 nats por carácter. ¿Cuál es su perplejidad? (Redondea a dos decimales.)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;La perplejidad es \(e^{H} = e^{1.36} \approx 3.90\): el modelo duda, en promedio, como si eligiera uniformemente entre unas 3.9 letras. En bits por carácter es \(1.36/\ln 2 \approx 1.96\). Es la cifra del &lt;em&gt;transformer&lt;/em&gt; del &lt;em&gt;Quijote&lt;/em&gt;.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>3.9</text>
+      <tolerance>0.02</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u06-p14</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En la atención de producto punto se divide \(\mathbf{q}^\top\mathbf{k}\) entre \(\sqrt{d_k}\). Si las componentes de \(\mathbf{q}\) y \(\mathbf{k}\) son independientes, con media 0 y varianza 1, ¿cuál es la razón?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Cada término \(q_ik_i\) tiene varianza 1 y son \(d_k\) términos independientes: \(\operatorname{Var}(\mathbf{q}^\top\mathbf{k}) = d_k\). Con puntajes de desviación estándar \(\sqrt{d_k}\) el softmax pone casi todo el peso en una clave (con \(d_k = 1024\), el 95 %), y la jacobiana \(\operatorname{diag}(\mathbf{p}) - \mathbf{p}\mathbf{p}^\top\) se encoge. Dividir entre \(\sqrt{d_k}\) devuelve la varianza a 1.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(\operatorname{Var}(\mathbf{q}^\top\mathbf{k}) = d_k\); sin escalar, el softmax se satura y su jacobiana se acerca a cero.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Para que los pesos \(\alpha_{ts}\) sumen 1.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El softmax ya suma 1 con o sin la división; la escala cambia qué tan concentrados quedan los pesos, no su suma.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque \(\mathbb{E}[\mathbf{q}^\top\mathbf{k}] = \sqrt{d_k}\) y hay que centrar los puntajes.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La media del producto punto es 0; lo que crece con \(d_k\) es la varianza.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Para reducir el costo de \(O(T^2 d)\) a \(O(T d)\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Dividir entre una constante no cambia el número de operaciones.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u06-p15</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una red recurrente \(\mathbf{h}_t = \tanh(W\mathbf{h}_{t-1} + U\mathbf{x}_t)\) con \(\sigma_{\max}(W) = 0.9\), ¿cuál es la cota superior de \(\lVert\partial\mathbf{h}_T/\partial\mathbf{h}_t\rVert_2\) cuando \(T - t = 50\)? (Da el valor con tres cifras significativas.)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\partial\mathbf{h}_T/\partial\mathbf{h}_t = \prod_{s=t+1}^{T}\operatorname{diag}(1 - \mathbf{h}_s^2)\,W\) y cada factor tiene norma a lo más \(\sigma_{\max}(W)\), porque \(0 &amp;lt; 1 - h^2 \le 1\). La cota es \(0.9^{50} \approx 0.00515\): a 50 pasos, el gradiente ya se redujo a medio por ciento como mínimo. Es el desvanecimiento del gradiente.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>0.00515</text>
+      <tolerance>0.0001</tolerance>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u06-p16</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Sin encaje de posición y sin máscara causal, si se permutan las posiciones de la entrada de una capa de autoatención, sus salidas quedan permutadas de la misma manera.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Verdadero. Con \(X' = PX\), \(Q' = PQ\), \(K' = PK\), \(V' = PV\), y \(\operatorname{softmax}(PQK^\top P^\top/\sqrt{d_k})PV = P\operatorname{softmax}(QK^\top/\sqrt{d_k})V\), porque el softmax por renglones conmuta con permutar renglones y columnas. La atención no sabe en qué orden están las letras: por eso hay que sumarles un encaje de posición.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+</quiz>

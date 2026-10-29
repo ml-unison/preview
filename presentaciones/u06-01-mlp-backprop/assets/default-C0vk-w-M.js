@@ -1,0 +1,1 @@
+import{S as e,V as t,W as n}from"./modules/shiki-B-v6-aKL.js";import{st as r}from"./index-DTJx1m-H.js";var i={class:`slidev-layout default`},a={__name:`default`,setup(a){let{$slidev:o,$nav:s,$clicksContext:c,$clicks:l,$page:u,$renderContext:d,$frontmatter:f}=r();return(r,a)=>(t(),e(`div`,i,[n(r.$slots,`default`)]))}};export{a as t};

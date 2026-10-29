@@ -1,0 +1,78 @@
+// Unidad 5 · Árboles y ensambles
+// Generado por herramientas/exportar_quizzes.py — no editar a mano
+
+$CATEGORY: $course$/Reconocimiento de Patrones/Unidad 5 · Árboles y ensambles
+
+::u05-p01::[html]Un nodo tiene 80 datos de la clase A y 20 de la clase B. ¿Cuál es su índice de Gini, \\(G \= \\sum_k p_k(1 - p_k)\\)? {#0.32:0.005####\\(p_A \= 0.8\\) y \\(p_B \= 0.2\\), así que \\(G \= 0.8 \\cdot 0.2 + 0.2 \\cdot 0.8 \= 2 \\cdot 0.8 \\cdot 0.2 \= 0.32\\). Es la probabilidad de equivocarse si a cada dato del nodo se le asigna una etiqueta al azar con las proporciones del nodo.}
+
+::u05-p02::[html]El mismo nodo (80 A, 20 B) se parte en dos hijas\: (40 A, 20 B) y (40 A, 0 B). ¿Qué pasa con la ganancia según el error de clasificación y según Gini? {
+	=El error no baja (ganancia 0), pero Gini sí baja (ganancia positiva).
+	~Las dos ganancias son cero.#Gini es estrictamente cóncava\: la impureza ponderada de las hijas, \\(0.6 \\cdot 0.444 + 0.4 \\cdot 0 \= 0.267\\), es menor que la del padre, \\(0.32\\).
+	~Las dos ganancias son positivas.#Ambas hijas siguen siendo de mayoría A\: se equivocan en los mismos 20 datos B que el padre, así que el error ponderado sigue siendo \\(0.2\\).
+	~El error baja, pero Gini no.#Es al revés; el error de clasificación es lineal a trozos y no distingue esta división.
+	####El error de clasificación es lineal a trozos en las proporciones\: si las dos hijas quedan del mismo lado de \\(1/2\\), la ganancia es exactamente cero. Gini y entropía son estrictamente cóncavas y premian la división que deja un nodo puro.
+}
+
+::u05-p03::[html]Si en un árbol de regresión se reemplaza la temperatura por su exponencial, \\(e^\{\\text\{temp\}/5\}\\), las particiones de los datos de entrenamiento cambian. {F####Falso. El árbol solo compara \\(x_j \\le t\\), y una transformación estrictamente creciente conserva el orden de los datos\: las particiones posibles son las mismas, con umbrales transformados. Por eso los árboles no necesitan escalar los atributos.}
+
+::u05-p04::[html]En la poda por costo–complejidad, \\(R_\\alpha(T) \= R(T) + \\alpha |T|\\), ¿qué ocurre al aumentar \\(\\alpha\\)? {
+	=Se prefieren subárboles con menos hojas; con \\(\\alpha\\) suficientemente grande queda solo la raíz.
+	~Se prefieren árboles más profundos.#\\(\\alpha\\) es el precio de cada hoja\: aumentarlo castiga los árboles grandes.
+	~El error de entrenamiento \\(R(T)\\) del árbol elegido baja.#Al podar, el error de entrenamiento sube o se queda igual; lo que se gana es menos varianza.
+	~Cambia el orden en que se hicieron las divisiones al crecer el árbol.#La poda no vuelve a crecer el árbol; elige entre subárboles anidados del árbol grande \\(T_0\\).
+	####Los subárboles óptimos forman una sucesión anidada \\(T_0 \\supset T_1 \\supset \\cdots \\supset \\\{\\text\{raíz\}\\\}\\); al crecer \\(\\alpha\\) se avanza en la sucesión. El valor de \\(\\alpha\\) se elige por validación cruzada.
+}
+
+::u05-p05::[html]Se promedian \\(B\\) árboles, cada uno con varianza \\(\\sigma^2\\) en un punto \\(\\mathbf\{x\}\\) y correlación \\(\\rho \= 0.2\\) entre cada par. ¿Qué pasa con la varianza del promedio cuando \\(B \\to \\infty\\)? {
+	=Tiende a \\(0.2\\,\\sigma^2\\).
+	~Tiende a cero.#Eso solo pasa si los árboles son independientes (\\(\\rho \= 0\\)). La parte correlacionada del error no se cancela al promediar.
+	~Se queda en \\(\\sigma^2\\).#Promediar sí ayuda\: la parte \\(\\frac\{1-\\rho\}\{B\}\\sigma^2\\) desaparece.
+	~Tiende a \\(0.8\\,\\sigma^2\\).#Revisa la fórmula\: lo que queda es la parte compartida, \\(\\rho\\sigma^2\\), no \\((1-\\rho)\\sigma^2\\).
+	####\\(\\operatorname\{Var\}(\\bar Z) \= \\rho\\sigma^2 + \\frac\{1-\\rho\}\{B\}\\sigma^2 \\to \\rho\\sigma^2\\). Los bosques aleatorios sortean atributos en cada división precisamente para bajar \\(\\rho\\), y con él ese piso.
+}
+
+::u05-p06::[html]Se saca una remuestra <em>bootstrap</em> de \\(N \= 5\\) datos. ¿Cuál es la probabilidad de que un dato dado <strong>no</strong> aparezca en ella? Responde con tres decimales. {#0.328:0.001####\\((1 - 1/5)^5 \= 0.8^5 \= 0.32768\\). Conforme \\(N\\) crece, \\((1 - 1/N)^N \\to e^\{-1\} \\approx 0.368\\)\: cada árbol deja fuera de su bolsa más o menos un tercio de los datos, y esos datos sirven para estimar el error (OOB).}
+
+::u05-p07::[html]En un bosque aleatorio, el número de árboles \\(B\\) es un hiperparámetro que hay que elegir con cuidado, porque demasiados árboles sobreajustan. {F####Falso. Agregar árboles solo acerca el promedio a su límite cuando \\(B \\to \\infty\\); el error de prueba se estabiliza y no vuelve a subir. Basta con poner «suficientes» árboles (el costo es tiempo). Los hiperparámetros que sí hay que elegir son \\(m\\) (atributos por división) y el tamaño de las hojas, por ejemplo con el error fuera de la bolsa.}
+
+::u05-p08::[html]A los datos del censo se les agrega una columna <code>id</code> con un número distinto para cada persona. Un bosque con hojas de un dato le asigna una importancia MDI (disminución media de la impureza) mayor que a casi todos los atributos reales. ¿Por qué? {
+	=En los nodos profundos, con pocos datos, un atributo con muchos valores distintos encuentra por azar umbrales que bajan la impureza en entrenamiento.
+	~Porque el número de identificación está correlacionado con el ingreso.#Se asignó al azar; la importancia por permutación en prueba confirma que no aporta nada.
+	~Porque MDI se calcula en el conjunto de prueba, que es pequeño.#Es al revés; MDI se calcula con las divisiones hechas en entrenamiento. Por eso premia lo que solo sirve para memorizar.
+	~Porque el bosque sortea <code>id</code> en más divisiones que los demás atributos.#Todos los atributos tienen la misma probabilidad de ser sorteados; lo que cambia es cuántos umbrales ofrece cada uno.
+	####MDI suma las bajadas de impureza de entrenamiento, y los atributos con muchos valores posibles tienen más oportunidades de separar por casualidad (Strobl et al., 2007). Para saber qué usa un modelo, conviene la importancia por permutación en datos que el modelo no vio.
+}
+
+::u05-p09::[html]En una ronda de AdaBoost, el tocón elegido tiene error ponderado \\(\\varepsilon_t \= 0.2\\). ¿Cuánto vale su voto \\(\\alpha_t \= \\tfrac12 \\ln\\frac\{1-\\varepsilon_t\}\{\\varepsilon_t\}\\)? (Dos decimales.) {#0.69:0.01####\\(\\alpha_t \= \\tfrac12\\ln(0.8/0.2) \= \\tfrac12\\ln 4 \= \\ln 2 \\approx 0.693\\). Los datos mal clasificados multiplican su peso por \\(e^\{\\alpha_t\} \= 2\\) y los bien clasificados por \\(e^\{-\\alpha_t\} \= 0.5\\) (antes de normalizar). Ese \\(\\alpha_t\\) es el que minimiza la pérdida exponencial en la etapa \\(t\\).}
+
+::u05-p10::[html]En <em>gradient boosting</em> para clasificación con pérdida logística, \\(y \\in \\\{0, 1\\\}\\) y \\(F\\) en escala de log-momios, ¿a qué se ajusta el árbol de la etapa \\(m\\)? {
+	=A los pseudo-residuos \\(y_n - p_n\\), con \\(p_n \= \\sigma(F_\{m-1\}(\\mathbf\{x\}_n))\\).
+	~A las etiquetas \\(y_n\\) originales, con pesos más grandes para los mal clasificados.#Eso se parece a AdaBoost (pérdida exponencial), no a <em>gradient boosting</em> con pérdida logística.
+	~A los residuos \\(y_n - F_\{m-1\}(\\mathbf\{x\}_n)\\).#Ése es el pseudo-residuo de la pérdida cuadrática; aquí \\(F\\) es un log-momio y no se compara directamente con \\(y \\in \\\{0,1\\\}\\).
+	~Al signo de \\(y_n - p_n\\).#El signo es el pseudo-residuo de la pérdida absoluta, no de la logística.
+	####El pseudo-residuo es el gradiente negativo de la pérdida respecto de \\(F\\). Para \\(L \= \\ln(1 + e^F) - yF\\), \\(-\\partial L/\\partial F \= y - \\sigma(F) \= y - p\\)\: «etiqueta menos probabilidad», el mismo residuo de la regresión logística.
+}
+
+::u05-p11::[html]Igual que en un bosque aleatorio, en <em>gradient boosting</em> agregar más árboles nunca aumenta el error de prueba esperado, así que no hace falta elegir el número de árboles. {F####Falso. Cada árbol nuevo se ajusta a lo que queda por explicar, y tarde o temprano ajusta ruido\: el error de validación tiene un mínimo y luego sube. El número de árboles (junto con la tasa de aprendizaje) controla la complejidad y se elige con parada temprana o validación cruzada. En el mercadeo bancario, con \\(\\eta \= 0.3\\) el mínimo llegó con 33 árboles.}
+
+::u05-p12::[html]En XGBoost, una hoja reúne datos con suma de gradientes \\(G \= 30\\) y suma de hessianas \\(H \= 20\\), con \\(\\lambda \= 10\\). ¿Cuál es el valor óptimo \\(w^*\\) de la hoja? {#-1:0.001####\\(w^* \= -G/(H + \\lambda) \= -30/30 \= -1\\). Sin regularización sería \\(-30/20 \= -1.5\\)\: \\(\\lambda\\) encoge los valores de las hojas hacia 0, sobre todo en hojas con pocos datos (de \\(H\\) pequeña).}
+
+::u05-p13::[html]Un modelo de precios usa el área habitable y, además, una copia casi idéntica de ella (el área que declaró el vendedor). ¿Qué esperas de la importancia por permutación del área habitable, comparada con la de un modelo sin la copia? {
+	=Baja, porque al barajar una de las dos columnas el modelo todavía puede usar la otra.
+	~Sube al doble, porque ahora hay dos columnas con la misma información.#La permutación mide cuánto empeora el error al barajar una sola columna, dados los demás atributos; con la copia disponible, se pierde poco.
+	~No cambia, porque la permutación no depende de los demás atributos.#Sí depende; el error con la columna barajada se calcula con el modelo completo, que puede apoyarse en los atributos correlacionados.
+	~Se vuelve negativa.#Puede salir ligeramente negativa por azar si el atributo no se usa, pero aquí el área se sigue usando; lo esperable es una importancia menor, no negativa.
+	####En las casas de Ames, la importancia del área bajó de 0.071 a 0.042 al agregar la copia, con el mismo error de prueba. La importancia por permutación mide lo que se pierde sin el atributo <strong>dados los demás</strong>, no cuánta información aporta. Un remedio es barajar juntos los grupos de atributos correlacionados.
+}
+
+::u05-p14::[html]Un juego de tres jugadores tiene \\(v(\\varnothing) \= 0\\), \\(v(\\\{1\\\}) \= 10\\), \\(v(\\\{2\\\}) \= 20\\), \\(v(\\\{3\\\}) \= 0\\), \\(v(\\\{1,2\\\}) \= 40\\), \\(v(\\\{1,3\\\}) \= 10\\), \\(v(\\\{2,3\\\}) \= 20\\) y \\(v(\\\{1,2,3\\\}) \= 40\\). ¿Cuál es el valor de Shapley del jugador 1? {#15:0.01####El jugador 3 nunca aporta (jugador nulo), así que \\(\\phi_3 \= 0\\) y basta con los órdenes de 1 y 2. Si 1 llega antes que 2 (la mitad de los órdenes), aporta \\(v(\\\{1\\\}) - v(\\varnothing) \= 10\\); si llega después, \\(v(\\\{1,2\\\}) - v(\\\{2\\\}) \= 20\\). El promedio es \\(\\phi_1 \= 15\\), y por eficiencia \\(\\phi_2 \= 40 - 15 \= 25\\).}
+
+::u05-p15::[html]Para un modelo lineal \\(\\hat f(\\mathbf\{x\}) \= w_0 + \\mathbf\{w\}^\\top\\mathbf\{x\}\\) con el juego intervencional \\(v(S) \= \\mathbb\{E\}[\\hat f(\\mathbf\{x\}_S, X_C)]\\), el valor SHAP del atributo \\(j\\) es \\(w_j\\,(x_j - \\mathbb\{E\}[X_j])\\). {T####Verdadero. \\(v(S) \= w_0 + \\sum_\{k \\in S\} w_k x_k + \\sum_\{k \\notin S\} w_k \\mathbb\{E\}[X_k]\\), así que la contribución marginal de \\(j\\) a cualquier coalición es la misma, \\(w_j(x_j - \\mathbb\{E\}[X_j])\\), y su promedio también.}
+
+::u05-p16::[html]La dependencia parcial del área en 250 m² se calcula poniéndole 250 m² a todas las casas y promediando las predicciones. ¿Cuál es su principal problema cuando el área está correlacionada con la calidad? {
+	=Promedia predicciones en combinaciones que no existen en los datos (casas grandes de calidad muy baja), donde el modelo extrapola.
+	~Solo se puede calcular para modelos lineales.#Se calcula para cualquier modelo con solo hacer predicciones.
+	~Requiere reentrenar el modelo una vez por cada valor del área.#No reentrena nada; solo evalúa el modelo ya entrenado en datos modificados.
+	~Siempre da una recta.#Da la forma que tenga el modelo; con árboles, una función escalonada.
+	####En Ames, de las 31 casas reales de 250 m² o más solo una tiene calidad 5 o menos, pero el 36 % de los puntos que la PDP promedia en 250 m² tienen esa calidad. Los efectos locales acumulados (ALE) corrigen esto promediando solo sobre casas cercanas.
+}

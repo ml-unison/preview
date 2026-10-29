@@ -1,0 +1,82 @@
+// Unidad 4 · Modelos lineales
+// Generado por herramientas/exportar_quizzes.py — no editar a mano
+
+$CATEGORY: $course$/Reconocimiento de Patrones/Unidad 4 · Modelos lineales
+
+::u04-p01::[html]En mínimos cuadrados, \\(\\hat\{\\mathbf\{y\}\} \= X\\mathbf\{w\}_\{\\text\{lin\}\}\\). ¿Qué propiedad tiene el vector de residuos \\(\\mathbf\{y\} - \\hat\{\\mathbf\{y\}\}\\)? {
+	=Es ortogonal a cada columna de \\(X\\).
+	~Tiene todas sus entradas iguales a cero.#Eso solo pasa si \\(\\mathbf\{y\}\\) está en el espacio columna de \\(X\\), es decir, si el ajuste es perfecto.
+	~Es paralelo a \\(\\hat\{\\mathbf\{y\}\}\\).#Es al revés; el residuo es perpendicular a \\(\\hat\{\\mathbf\{y\}\}\\), que vive en el espacio columna.
+	~Su norma es igual a la de \\(\\mathbf\{y\}\\).#Por Pitágoras, \\(\\lVert\\mathbf\{y\}\\rVert^2 \= \\lVert\\hat\{\\mathbf\{y\}\}\\rVert^2 + \\lVert\\mathbf\{y\}-\\hat\{\\mathbf\{y\}\}\\rVert^2\\).
+	####Las ecuaciones normales son \\(X^\\top(\\mathbf\{y\} - X\\mathbf\{w\}) \= 0\\)\: \\(\\hat\{\\mathbf\{y\}\}\\) es la proyección ortogonal de \\(\\mathbf\{y\}\\) sobre el espacio columna de \\(X\\).
+}
+
+::u04-p02::[html]La matriz sombrero \\(H \= X(X^\\top X)^\{-1\}X^\\top\\) de un modelo con intersección y 5 atributos, ajustado con 200 datos, ¿qué traza tiene? {#6:0####\\(\\operatorname\{tr\} H \= \\operatorname\{tr\}\\big((X^\\top X)^\{-1\}X^\\top X\\big) \= \\operatorname\{tr\} I_\{d+1\} \= d + 1 \= 6\\).}
+
+::u04-p03::[html]Si \\(\\kappa(X) \= 1000\\), ¿cuál es el número de condición de \\(X^\\top X\\)? {
+	=\\(10^6\\)
+	~\\(1000\\)#Los valores singulares de \\(X^\\top X\\) son los cuadrados de los de \\(X\\).
+	~\\(\\sqrt\{1000\}\\)#Formar \\(X^\\top X\\) empeora el condicionamiento, no lo mejora.
+	~Depende de \\(N\\).#Depende solo de los valores singulares de \\(X\\).
+	####\\(\\kappa(X^\\top X) \= \\kappa(X)^2\\). Por eso se prefiere resolver con QR o SVD de \\(X\\) en lugar de las ecuaciones normales.
+}
+
+::u04-p04::[html]Estandarizar los atributos cambia las predicciones de la regresión lineal por mínimos cuadrados (con intersección y sin regularización). {F####Falso. Es una reparametrización afín\: el espacio columna no cambia y \\(\\hat\{\\mathbf\{y\}\}\\) tampoco. Lo que cambia es el número de condición y, con él, la velocidad del descenso por gradiente.}
+
+::u04-p05::[html]Para predecir rentas de bicicletas por hora, ¿por qué conviene codificar la hora del día con <em>one-hot</em> en lugar de usarla como un número? {
+	=Porque el efecto de la hora no es lineal; con one-hot cada hora tiene su propio nivel.
+	~Porque one-hot reduce el número de parámetros.#Al contrario, pasa de 1 a 23 columnas.
+	~Porque la regresión lineal no acepta enteros.#Los acepta; el problema es que impone una relación lineal con la hora.
+	~Porque así el modelo deja de ser lineal.#Sigue siendo lineal en los parámetros; lo que cambia es la transformación de los datos.
+}
+
+::u04-p06::[html]En una regresión logística, el coeficiente de una variable es \\(w_j \= 0.7\\). ¿Por cuánto se multiplican los momios cuando la variable sube una unidad? (dos decimales) {#2.01:0.01####La razón de momios es \\(e^\{0.7\} \\approx 2.01\\)\: los momios casi se duplican.}
+
+::u04-p07::[html]¿Qué pasa al ajustar una regresión logística <strong>sin regularización</strong> a datos linealmente separables? {
+	=El estimador de máxima verosimilitud no existe y \\(\\lVert\\mathbf\{w\}\\rVert\\) crece sin límite.
+	~Se obtiene la frontera de margen máximo.#Esa es la SVM; la logística sin regularizar no converge a un punto.
+	~El método de Newton converge en una iteración.#Newton sigue iterando y \\(\\lVert\\mathbf\{w\}\\rVert\\) crece en cada paso.
+	~La entropía cruzada alcanza exactamente cero.#Tiende a cero, pero no lo alcanza con ningún \\(\\mathbf\{w\}\\) finito.
+}
+
+::u04-p08::[html]Para un modelo lineal generalizado con liga canónica, ¿cuál es el gradiente de la log-verosimilitud? {
+	=\\(X^\\top(\\mathbf\{y\} - \\boldsymbol\\mu)\\)
+	~\\(X^\\top X\\mathbf\{w\} - X^\\top\\mathbf\{y\}\\)#Ese es el caso particular (con el signo de la pérdida) de la regresión lineal, donde \\(\\boldsymbol\\mu \= X\\mathbf\{w\}\\).
+	~\\((\\mathbf\{y\} - \\boldsymbol\\mu)^\\top(\\mathbf\{y\} - \\boldsymbol\\mu)\\)#Eso es un escalar, la suma de cuadrados.
+	~\\(X^\\top \\operatorname\{diag\}(\\boldsymbol\\mu) X\\)#Eso se parece a la hessiana (con signo negativo) de la regresión de Poisson.
+	####Con \\(\\ell \= \\sum_n [y_n \\eta_n - A(\\eta_n)]\\) y \\(A'(\\eta) \= \\mu\\), la regla de la cadena da \\(X^\\top(\\mathbf\{y\} - \\boldsymbol\\mu)\\) para normal, Bernoulli y Poisson.
+}
+
+::u04-p09::[html]¿Por qué la regresión de Poisson es más adecuada que la lineal para conteos como las rentas de bicicletas por hora? {
+	=Predice medias positivas y su varianza crece con la media.
+	~Tiene solución en forma cerrada.#No la tiene; se ajusta con Newton (IRLS).
+	~Usa menos parámetros.#Con los mismos atributos usa los mismos parámetros.
+	~Siempre tiene menor error cuadrático en entrenamiento.#Mínimos cuadrados minimiza justamente el error cuadrático en entrenamiento.
+}
+
+::u04-p10::[html]En el análisis discriminante lineal (LDA), ¿qué supuesto hace que la frontera entre clases sea lineal? {
+	=Que todas las clases comparten la misma matriz de covarianza.
+	~Que las clases tienen la misma probabilidad previa.#Las previas solo desplazan la frontera; no la curvan.
+	~Que los atributos son independientes dentro de cada clase.#Ese es el supuesto de Bayes ingenuo.
+	~Que los datos son linealmente separables.#LDA no necesita datos separables.
+	####Con \\(\\Sigma\\) común, el término \\(\\mathbf\{x\}^\\top\\Sigma^\{-1\}\\mathbf\{x\}\\) es el mismo para todas las clases y se cancela al comparar. Con covarianzas distintas (QDA) no se cancela y la frontera es cuadrática.
+}
+
+::u04-p11::[html]En Bayes ingenuo multinomial para texto, una palabra aparece 50 veces en mensajes normales y nunca en spam. Sin suavizado, ¿qué pasa con un mensaje nuevo que la contiene? {
+	=Su probabilidad de ser spam es exactamente cero, sin importar las demás palabras.
+	~La palabra se ignora.#Al contrario, domina todo el producto.
+	~El modelo lo clasifica como spam.#Con \\(\\hat\\theta_\{\\text\{spam\}\} \= 0\\), el producto para spam se anula.
+	~El logaritmo vale cero y no afecta.#El logaritmo de cero es \\(-\\infty\\).
+	####El suavizado de Laplace, \\(\\hat\\theta_\{yj\} \= (N_\{yj\} + \\alpha)/(N_y + \\alpha V)\\), evita que un solo cero vete una clase.
+}
+
+::u04-p12::[html]La razón de log-posteriores de Bayes ingenuo multinomial es una función lineal de los conteos de palabras, la misma forma que la regresión logística. {T####Verdadero\: \\(\\ln\\frac\{P(1\\mid\\mathbf\{x\})\}\{P(0\\mid\\mathbf\{x\})\} \= b + \\sum_j x_j w_j\\) con \\(w_j \= \\ln(\\hat\\theta_\{1j\}/\\hat\\theta_\{0j\})\\). Cambia la forma de estimar los pesos\: por conteo en Bayes ingenuo y conjuntamente en la logística.}
+
+::u04-p13::[html]Una SVM de margen duro entrenada con 400 datos tiene 12 vectores de soporte. ¿Cuál es la cota superior del error de dejar-uno-fuera? (decimal) {#0.03:0.0001####\\(E_\{\\text\{cv\}\} \\le \\\#\\text\{VS\}/N \= 12/400 \= 0.03\\). Quitar un punto que no es vector de soporte no cambia la solución, y ese punto queda bien clasificado.}
+
+::u04-p14::[html]Con una SVM de kernel gaussiano \\(K(\\mathbf\{x\},\\mathbf\{x\}') \= e^\{-\\gamma\\lVert\\mathbf\{x\}-\\mathbf\{x\}'\\rVert^2\}\\), el error de validación cruzada es mucho mayor que el de entrenamiento y casi todos los puntos son vectores de soporte. ¿Qué conviene probar? {
+	=Reducir \\(\\gamma\\).#Con \\(\\gamma\\) grande cada vector de soporte influye solo en su vecindad\: sobreajuste.
+	~Aumentar \\(\\gamma\\).#Eso hace la frontera todavía más local.
+	~Aumentar \\(C\\).#Un \\(C\\) mayor castiga más los errores de entrenamiento; agrava el sobreajuste.
+	~Quitar la estandarización de los atributos.#El kernel gaussiano depende de distancias; sin escalar, un atributo domina.
+}

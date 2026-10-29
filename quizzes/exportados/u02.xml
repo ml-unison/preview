@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Reconocimiento de Patrones/Unidad 2 · Aprendizaje no supervisado</text>
+    </category>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p01</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En el algoritmo de Lloyd (k-medias), con la asignación de los puntos fija, ¿qué valor de \(\mu_j\) minimiza \(\sum_{c(i)=j} \lVert \mathbf{x}_i - \mu_j \rVert^2\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\nabla_{\mu_j} \sum_{c(i)=j} \lVert \mathbf{x}_i - \mu_j \rVert^2 = -2 \sum_{c(i)=j} (\mathbf{x}_i - \mu_j) = 0 \Rightarrow \mu_j = \frac{1}{n_j}\sum_{c(i)=j} \mathbf{x}_i\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;La media de los puntos asignados al grupo \(j\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Al igualar el gradiente a cero se obtiene \(\mu_j = \bar{\mathbf{x}}_j\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;La mediana, coordenada por coordenada, de los puntos del grupo \(j\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La mediana minimiza la suma de distancias absolutas (\(\ell_1\)), no la de cuadrados. Eso da el algoritmo de k-medianas.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El punto del grupo \(j\) más cercano al centro anterior.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Restringir el centro a ser un dato da k-medoides, que no minimiza la suma de cuadrados.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El centro anterior, porque el paso de asignación ya minimizó \(J\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La asignación minimiza \(J\) con los centros fijos; mover los centros puede bajar \(J\) todavía más.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u02-p02</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si se corre k-medias hasta que converja, el resultado es el agrupamiento con la menor suma de distancias al cuadrado \(J\) entre todos los posibles.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. k-medias converge a un &lt;strong&gt;mínimo local&lt;/strong&gt;: un punto donde ni reasignar ni mover centros mejora \(J\). Con nueve grupos en rejilla, 50 de 60 inicios al azar quedaron atrapados. Por eso se usan k-medias++ y varias inicializaciones (&lt;code&gt;n_init&lt;/code&gt;).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p03</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Graficas la inercia \(J\) de k-medias para \(k = 1, 2, \dots, 10\). ¿Por qué no basta con elegir el \(k\) de menor \(J\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Más centros siempre permiten acercarse más a los datos. Para elegir \(k\) se buscan criterios que castiguen la complejidad (el «codo», la silueta, o BIC en mezclas) y, sobre todo, se piensa para qué se quieren los grupos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Porque \(J\) nunca aumenta al aumentar \(k\); con \(k = n\) vale cero.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque \(J\) depende de la inicialización y cambia en cada corrida.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es cierto que depende del inicio, pero con varias corridas eso se controla. El problema de fondo es otro.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque \(J\) solo se puede calcular cuando se conocen las etiquetas verdaderas.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;\(J\) es un criterio interno; solo usa los datos y los centros.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque \(J\) crece con \(k\) y el mínimo siempre está en \(k = 1\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es al revés, \(J\) baja al aumentar \(k\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u02-p04</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Un punto tiene distancia media \(a = 2\) a los demás puntos de su grupo y distancia media \(b = 5\) a los puntos del grupo vecino más cercano. ¿Cuánto vale su silueta \(s = (b - a)/\max(a, b)\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(s = (5 - 2)/5 = 0.6\). Un valor cercano a 1 indica que el punto está bien dentro de su grupo; cerca de 0, que está en la frontera; negativo, que quizá está en el grupo equivocado.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>0.6</text>
+      <tolerance>0.001</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p05</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Tienes dos medias lunas entrelazadas (como en la presentación). ¿Qué método tiene más posibilidades de separarlas bien?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Las formas no convexas son el caso favorable de DBSCAN (y del enlace simple, que también encadena). Los métodos basados en centros o en elipses suponen grupos compactos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;DBSCAN con un radio \(\varepsilon\) adecuado.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;DBSCAN une regiones densas en cadena, sin importar su forma.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;k-medias con \(k = 2\) y muchas inicializaciones.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Más inicializaciones no cambian la forma de las fronteras de k-medias, que siempre son rectas (regiones de Voronoi).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Una mezcla gaussiana de dos componentes con covarianza completa.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Cada componente es una elipse; una media luna no es una elipse.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Jerárquico con enlace de Ward.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ward minimiza la misma suma de cuadrados que k-medias y prefiere grupos compactos y redondos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p06</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En agrupamiento jerárquico aglomerativo, ¿qué criterio de enlace tiende a producir el efecto de &lt;strong&gt;encadenamiento&lt;/strong&gt;, en el que dos grupos lejanos se unen por una fila de puntos intermedios?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Con el enlace simple basta &lt;strong&gt;un&lt;/strong&gt; par de puntos cercanos para unir dos grupos. En la libreta 1, con los clientes, el enlace simple deja casi todo en un solo grupo.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Simple (distancia entre el par de puntos más cercano).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Completo (distancia entre el par más lejano).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El enlace completo hace lo contrario: penaliza los grupos extendidos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Promedio.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El promedio de todos los pares es un punto intermedio; encadena mucho menos que el simple.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Ward.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ward prefiere grupos compactos, como k-medias.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u02-p07</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una mezcla gaussiana, la responsabilidad \(\gamma_{ik}\) es la probabilidad de que el punto \(\mathbf{x}_i\) haya sido generado por la componente \(k\), dado el valor observado de \(\mathbf{x}_i\).&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Verdadero. Por la regla de Bayes, \(\gamma_{ik} = \pi_k \mathcal{N}(\mathbf{x}_i \mid \mu_k, \Sigma_k) / \sum_j \pi_j \mathcal{N}(\mathbf{x}_i \mid \mu_j, \Sigma_j)\). Para cada punto, las responsabilidades suman 1.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p08</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿Qué garantiza el algoritmo EM en cada iteración?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Que la log-verosimilitud de los datos no disminuye.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El paso E hace exacta una cota inferior y el paso M la maximiza; por eso la log-verosimilitud no baja.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que alcanza el máximo global de la verosimilitud.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Solo garantiza no bajar; puede terminar en un máximo local. Con otro inicio, los pingüinos terminan en \(\ell = -862\) en vez de \(-822\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que la suma de distancias al cuadrado \(J\) disminuye estrictamente.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;\(J\) es el criterio de k-medias; EM optimiza la verosimilitud de la mezcla.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que las responsabilidades se vuelven 0 o 1.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso pasa solo en el caso límite \(\Sigma_k = \sigma^2 I\) con \(\sigma \to 0\), que da k-medias.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u02-p09</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿Cuántos parámetros libres tiene &lt;strong&gt;una&lt;/strong&gt; matriz de covarianza completa en \(d = 4\) dimensiones?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Una covarianza es simétrica: \(d(d+1)/2 = 4 \cdot 5/2 = 10\) parámetros. Con \(d = 100\) serían 5,050 por componente; por eso a veces se prefieren covarianzas diagonales o compartidas.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>10</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p10</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Aplicas PCA a los pingüinos con el pico y la aleta en milímetros y la masa en gramos, &lt;strong&gt;sin estandarizar&lt;/strong&gt;. La primera componente explica el 99.99 % de la varianza. ¿Qué concluyes?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;PCA busca direcciones de máxima varianza, y la varianza depende de las unidades. Si las variables están en escalas distintas y no hay una razón para preferir unas, se estandarizan.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;La primera componente es prácticamente la masa, porque en gramos su varianza es enorme comparada con las demás.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Los datos son casi unidimensionales y basta una componente.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La conclusión depende de las unidades. Estandarizadas, la primera componente explica 69 %.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Las cuatro medidas están casi perfectamente correlacionadas.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;No se puede concluir eso: una sola variable de gran varianza domina aunque no esté correlacionada con las otras.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;PCA falló porque los datos no están centrados.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;PCA siempre centra los datos; el problema es la escala, no la media.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u02-p11</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En los dígitos de \(8 \times 8\) (64 dimensiones), ¿cuántas componentes principales se necesitan como mínimo para conservar el 90 % de la varianza?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Con 20 componentes se conserva el 89.4 % y con 21, el 90.3 %. Lo calculas en la libreta 3 y en el Laboratorio 2.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>21</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u02-p12</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una proyección t-SNE, el grupo de los ceros aparece el doble de grande y muy lejos del grupo de los unos. ¿Qué puedes concluir?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Ver Wattenberg, Viégas y Johnson, «How to Use t-SNE Effectively» (Distill, 2016). Lo que sí es razonable leer en un t-SNE es qué puntos quedan juntos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Casi nada sobre tamaños ni distancias; t-SNE conserva vecindarios locales, no escalas globales.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que en el espacio original los ceros son más variables que los unos.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;t-SNE tiende a igualar el tamaño de los grupos; dos nubes con dispersión 8 veces distinta salen casi iguales.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que los ceros y los unos son los dígitos más distintos entre sí.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Las distancias entre grupos en t-SNE no tienen una interpretación fiable.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que la perplejidad es demasiado baja.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La perplejidad cambia el dibujo, pero esta observación no permite diagnosticarla.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+</quiz>

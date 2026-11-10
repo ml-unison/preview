@@ -1,0 +1,64 @@
+// Unidad 7 · Series de tiempo
+// Generado por herramientas/exportar_quizzes.py — no editar a mano
+
+$CATEGORY: $course$/Reconocimiento de Patrones/Unidad 7 · Series de tiempo
+
+::u07-p01::[html]La ACF muestral de la temperatura diaria de Hermosillo vale \\(-0.79\\) en el rezago de 182 días. ¿Qué indica eso? {
+	=El ciclo anual, que hace la serie no estacionaria; no es memoria del clima.
+	~Que un día caliente tiende a seguirse, medio año después, de uno frío por algún mecanismo físico.#La oscilación aparece porque la media depende de la fecha (enero contra julio); al quitar la climatología desaparece.
+	~Que la serie es ruido blanco.#En un ruido blanco, casi todas las \\(\\hat\\rho(k)\\) caen dentro de \\(\\pm 1.96/\\sqrt\{T\}\\), que aquí es \\(\\pm 0.019\\).
+	~Que la temperatura es una caminata aleatoria.#Una caminata tiene una ACF que decae lentamente y casi en línea recta, no una que oscila con periodo de un año.
+	####La estacionalidad aparece en la ACF como una oscilación con el periodo \\(m\\). La serie cruda no es estacionaria (su media cambia con la fecha), así que su ACF mezcla pares de días de estaciones distintas. La memoria de verdad se mide en las anomalías\: 0.79 a un día, 0.21 a una semana.
+}
+
+::u07-p02::[html]Sea \\(y_t \= y_\{t-1\} + \\varepsilon_t\\), con \\(y_0 \= 0\\) y \\(\\varepsilon_t\\) ruido blanco de varianza \\(\\sigma^2 \= 4\\). ¿Cuánto vale \\(\\operatorname\{Var\}(y_\{25\})\\)? {#100:0####\\(y_\{25\} \= \\varepsilon_1 + \\dots + \\varepsilon_\{25\}\\) y los \\(\\varepsilon\\) no están correlacionados, así que \\(\\operatorname\{Var\}(y_\{25\}) \= 25\\sigma^2 \= 100\\). La varianza crece con \\(t\\)\: la caminata aleatoria no es estacionaria.}
+
+::u07-p03::[html]Para pronosticar la temperatura a 7 días, un bosque aleatorio con rezagos, medias móviles, día del año y año tiene MAE de 1.75 °C con validación cruzada aleatoria de 5 pliegos, 2.37 °C con origen móvil y 2.19 °C en los años siguientes. ¿Por qué la validación cruzada aleatoria salió tan optimista? {
+	=Porque los días vecinos del día de prueba quedan en entrenamiento y sus temperaturas, muy correlacionadas con la de ese día, se filtran a través del modelo.
+	~Porque 5 pliegos son muy pocos; con 10 pliegos aleatorios el problema desaparece.#Con más pliegos aleatorios hay todavía más vecinos en entrenamiento; la fuga no depende de \\(K\\) sino de barajar el tiempo.
+	~Porque la matriz de atributos usa información posterior al día \\(t - 7\\).#Ningún atributo usa información posterior a \\(t-7\\); la fuga viene de la partición, no de la matriz.
+	~Porque el bosque aleatorio sobreajusta y la regresión lineal no.#El sobreajuste lo detectaría cualquier validación honesta; aquí el problema es que la validación aleatoria no es honesta con series.
+	####La anomalía de un día tiene correlación de 0.79 con la del día anterior. Al barajar, el modelo se entrena con \\(t-1\\) y \\(t+1\\) y puede «ubicar» al día \\(t\\) en el calendario. Los modelos flexibles aprovechan esa fuga; por eso se valida con origen móvil, entrenando solo con el pasado.
+}
+
+::u07-p04::[html]Si convertimos los datos y los pronósticos de temperatura de grados Celsius a kelvin, el MAPE no cambia, pero el MASE sí. {F####Es al revés. El MAPE divide entre \\(y_t\\), que depende del origen de la escala\: los mismos pronósticos del ingenuo dan 5.5 % en °C y 0.43 % en kelvin. El MASE divide el MAE entre el MAE del estacional ingenuo dentro de la muestra; una transformación afín \\(y \\mapsto \\alpha y + \\beta\\) multiplica los dos por \\(\\alpha\\), así que no cambia.}
+
+::u07-p05::[html]Un proceso AR(1) \\(y_t \= 0.8\\,y_\{t-1\} + \\varepsilon_t\\) tiene ruido blanco con varianza \\(\\sigma^2 \= 1\\). ¿Cuál es la varianza de \\(y_t\\)? (Dos decimales.) {#2.78:0.01####Tomando varianzas, \\(\\gamma_0 \= \\phi^2\\gamma_0 + \\sigma^2\\), así que \\(\\gamma_0 \= \\sigma^2/(1-\\phi^2) \= 1/0.36 \= 2.78\\).}
+
+::u07-p06::[html]La ACF muestral de una serie tiene una sola barra significativa, en el rezago 1, y su PACF decae alternando de signo. ¿Qué modelo sugiere la identificación de Box y Jenkins? {
+	=Un MA(1).
+	~Un AR(1).#En un AR(1) es al revés; la ACF decae geométricamente y la PACF se corta en el rezago 1.
+	~Una caminata aleatoria.#La ACF de una caminata aleatoria decae muy lentamente, casi no baja.
+	~Ruido blanco.#El ruido blanco no tiene ninguna autocorrelación significativa, tampoco en el rezago 1.
+	####En un MA(\\(q\\)), \\(y_t\\) y \\(y_\{t-k\}\\) no comparten choques si \\(k &gt; q\\), así que la ACF se corta en \\(q\\); la PACF decae. En un AR(\\(p\\)) se corta la PACF.
+}
+
+::u07-p07::[html]Para pronosticar con una caminata aleatoria \\(y_t \= y_\{t-1\} + \\varepsilon_t\\), con \\(\\operatorname\{Var\}(\\varepsilon_t) \= \\sigma^2\\), ¿cuál es la varianza del error de pronóstico a \\(h\\) pasos? {
+	=\\(h\\sigma^2\\)
+	~\\(\\sigma^2\\)#Esa es la varianza a un paso; a \\(h\\) pasos se acumulan \\(h\\) choques independientes.
+	~\\(\\sigma^2/(1-\\phi^2)\\)#Ese es el límite para un AR(1) estacionario con \\(|\\phi| &lt; 1\\); con \\(\\phi \= 1\\) no existe.
+	~\\(h^2\\sigma^2\\)#Los choques son independientes, así que sus varianzas se suman; crece como \\(h\\), no como \\(h^2\\).
+	####\\(y_\{T+h\} \= y_T + \\sum_\{j\=1\}^\{h\}\\varepsilon_\{T+j\}\\) y el pronóstico es \\(y_T\\), así que el error es la suma de \\(h\\) choques independientes\: varianza \\(h\\sigma^2\\). El ancho del intervalo crece como \\(\\sqrt\{h\}\\), sin cota.
+}
+
+::u07-p08::[html]Si la prueba de Ljung–Box sobre los residuos de un ARIMA da un valor \\(p\\) grande, eso garantiza que los intervalos de predicción del modelo tendrán la cobertura prometida en datos futuros. {F####Falso. Un valor \\(p\\) grande solo dice que no se detectó autocorrelación en los residuos dentro de la muestra. Los intervalos suponen además parámetros conocidos y que el futuro se comporta como el pasado. En la serie de CO₂, el SARIMA pasó la prueba y sus intervalos del 80 % cubrieron alrededor del 75 % en validación con origen móvil, porque la serie se aceleró.}
+
+::u07-p09::[html]Para pronosticar las rentas de bicicletas de mañana a las 8 h con información hasta hoy a las 20 h (\\(h \= 12\\)), ¿cuál de estos atributos produce <strong>fuga del futuro</strong>? {
+	=La temperatura observada mañana a las 8 h.
+	~Las rentas de hoy a las 20 h, \\(y_t\\).#Es el último dato conocido en el origen; es legítimo y suele ser el más útil a horizontes cortos.
+	~Si mañana es feriado.#El calendario de la hora objetivo se conoce de antemano.
+	~Las rentas del lunes pasado a las 8 h, \\(y_\{t+h-168\}\\).#Como \\(h \\le 168\\), ese valor ya ocurrió en el origen\: es un rezago legítimo.
+	####El clima de la hora objetivo no se conoce al pronosticar. Usarlo mejoró el MAE a 24 h casi 15 % en la libreta, pero esa mejora es una cota superior\: en producción habría que usar el pronóstico meteorológico disponible en el origen, y entrenar también con pronósticos históricos.
+}
+
+::u07-p10::[html]Con la estrategia <strong>recursiva</strong>, un modelo a un paso se aplica \\(h\\) veces metiendo sus propios pronósticos en la ventana. ¿Por qué su error suele crecer más con el horizonte que el de la estrategia <strong>directa</strong>? {
+	=Porque el modelo se entrenó con rezagos verdaderos y en la predicción recibe rezagos pronosticados, con error; los errores se acumulan.
+	~Porque usa menos datos de entrenamiento que la directa.#Usa los mismos orígenes; la diferencia está en qué recibe como entrada al predecir.
+	~Porque la directa entrena un solo modelo para todos los horizontes.#Es al revés; la directa entrena un modelo por horizonte. La que usa un solo modelo con varias salidas es la multisalida.
+	~Porque la recursiva no puede usar atributos de calendario.#Sí puede; el calendario de cada hora futura se conoce.
+	####En \\(h \= 1\\) ambas estrategias son el mismo modelo. A partir de ahí, la recursiva alimenta al modelo con entradas de otra distribución (pronósticos, más suaves y con error), y el error se propaga. En la libreta\: MAE a 24 h de 58.6 (recursiva) contra 54.4 (directa).
+}
+
+::u07-p11::[html]Para la pérdida cuantil \\(\\rho_\\tau(u) \= u\\,(\\tau - \\mathbb\{1\}[u &lt; 0])\\) con \\(u \= y - q\\), la derivada de la pérdida esperada es \\(L'(q) \= F(q) - \\tau\\). Si \\(Y \\sim \\text\{Uniforme\}(0, 200)\\), ¿qué pronóstico \\(q\\) minimiza la pérdida esperada con \\(\\tau \= 0.9\\)? {#180:0.5####\\(L'(q) \= 0\\) cuando \\(F(q) \= \\tau\\). Para la uniforme en \\([0, 200]\\), \\(F(q) \= q/200 \= 0.9\\), así que \\(q^* \= 180\\)\: el cuantil 0.9.}
+
+::u07-p12::[html]Si un modelo de LightGBM entrenado con <code>objective\="quantile"</code> para \\(\\tau \= 0.1\\) y \\(\\tau \= 0.9\\) da intervalos que en el periodo de prueba contienen solo el 64 % de los valores reales, hay un error de programación\: por construcción, la cobertura debe ser 80 %. {F####Falso. Los cuantiles se aprenden con los datos de entrenamiento\: describen la incertidumbre del pasado. Si la prueba es distinta (otra estación del año, eventos raros como un huracán, un sistema que creció), la cobertura puede quedar lejos del 80 %. Por eso la cobertura se mide en datos posteriores al entrenamiento; nunca se supone.}

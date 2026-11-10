@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Reconocimiento de Patrones/Unidad 7 · Series de tiempo</text>
+    </category>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p01</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;La ACF muestral de la temperatura diaria de Hermosillo vale \(-0.79\) en el rezago de 182 días. ¿Qué indica eso?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;La estacionalidad aparece en la ACF como una oscilación con el periodo \(m\). La serie cruda no es estacionaria (su media cambia con la fecha), así que su ACF mezcla pares de días de estaciones distintas. La memoria de verdad se mide en las anomalías: 0.79 a un día, 0.21 a una semana.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;El ciclo anual, que hace la serie no estacionaria; no es memoria del clima.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que un día caliente tiende a seguirse, medio año después, de uno frío por algún mecanismo físico.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La oscilación aparece porque la media depende de la fecha (enero contra julio); al quitar la climatología desaparece.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que la serie es ruido blanco.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;En un ruido blanco, casi todas las \(\hat\rho(k)\) caen dentro de \(\pm 1.96/\sqrt{T}\), que aquí es \(\pm 0.019\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que la temperatura es una caminata aleatoria.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Una caminata tiene una ACF que decae lentamente y casi en línea recta, no una que oscila con periodo de un año.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u07-p02</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Sea \(y_t = y_{t-1} + \varepsilon_t\), con \(y_0 = 0\) y \(\varepsilon_t\) ruido blanco de varianza \(\sigma^2 = 4\). ¿Cuánto vale \(\operatorname{Var}(y_{25})\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(y_{25} = \varepsilon_1 + \dots + \varepsilon_{25}\) y los \(\varepsilon\) no están correlacionados, así que \(\operatorname{Var}(y_{25}) = 25\sigma^2 = 100\). La varianza crece con \(t\): la caminata aleatoria no es estacionaria.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>100</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p03</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para pronosticar la temperatura a 7 días, un bosque aleatorio con rezagos, medias móviles, día del año y año tiene MAE de 1.75 °C con validación cruzada aleatoria de 5 pliegos, 2.37 °C con origen móvil y 2.19 °C en los años siguientes. ¿Por qué la validación cruzada aleatoria salió tan optimista?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;La anomalía de un día tiene correlación de 0.79 con la del día anterior. Al barajar, el modelo se entrena con \(t-1\) y \(t+1\) y puede «ubicar» al día \(t\) en el calendario. Los modelos flexibles aprovechan esa fuga; por eso se valida con origen móvil, entrenando solo con el pasado.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Porque los días vecinos del día de prueba quedan en entrenamiento y sus temperaturas, muy correlacionadas con la de ese día, se filtran a través del modelo.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque 5 pliegos son muy pocos; con 10 pliegos aleatorios el problema desaparece.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con más pliegos aleatorios hay todavía más vecinos en entrenamiento; la fuga no depende de \(K\) sino de barajar el tiempo.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque la matriz de atributos usa información posterior al día \(t - 7\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ningún atributo usa información posterior a \(t-7\); la fuga viene de la partición, no de la matriz.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque el bosque aleatorio sobreajusta y la regresión lineal no.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El sobreajuste lo detectaría cualquier validación honesta; aquí el problema es que la validación aleatoria no es honesta con series.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u07-p04</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si convertimos los datos y los pronósticos de temperatura de grados Celsius a kelvin, el MAPE no cambia, pero el MASE sí.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Es al revés. El MAPE divide entre \(y_t\), que depende del origen de la escala: los mismos pronósticos del ingenuo dan 5.5 % en °C y 0.43 % en kelvin. El MASE divide el MAE entre el MAE del estacional ingenuo dentro de la muestra; una transformación afín \(y \mapsto \alpha y + \beta\) multiplica los dos por \(\alpha\), así que no cambia.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u07-p05</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Un proceso AR(1) \(y_t = 0.8\,y_{t-1} + \varepsilon_t\) tiene ruido blanco con varianza \(\sigma^2 = 1\). ¿Cuál es la varianza de \(y_t\)? (Dos decimales.)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Tomando varianzas, \(\gamma_0 = \phi^2\gamma_0 + \sigma^2\), así que \(\gamma_0 = \sigma^2/(1-\phi^2) = 1/0.36 = 2.78\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>2.78</text>
+      <tolerance>0.01</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p06</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;La ACF muestral de una serie tiene una sola barra significativa, en el rezago 1, y su PACF decae alternando de signo. ¿Qué modelo sugiere la identificación de Box y Jenkins?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;En un MA(\(q\)), \(y_t\) y \(y_{t-k}\) no comparten choques si \(k &amp;gt; q\), así que la ACF se corta en \(q\); la PACF decae. En un AR(\(p\)) se corta la PACF.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Un MA(1).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Un AR(1).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;En un AR(1) es al revés; la ACF decae geométricamente y la PACF se corta en el rezago 1.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Una caminata aleatoria.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;La ACF de una caminata aleatoria decae muy lentamente, casi no baja.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Ruido blanco.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El ruido blanco no tiene ninguna autocorrelación significativa, tampoco en el rezago 1.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p07</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para pronosticar con una caminata aleatoria \(y_t = y_{t-1} + \varepsilon_t\), con \(\operatorname{Var}(\varepsilon_t) = \sigma^2\), ¿cuál es la varianza del error de pronóstico a \(h\) pasos?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(y_{T+h} = y_T + \sum_{j=1}^{h}\varepsilon_{T+j}\) y el pronóstico es \(y_T\), así que el error es la suma de \(h\) choques independientes: varianza \(h\sigma^2\). El ancho del intervalo crece como \(\sqrt{h}\), sin cota.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(h\sigma^2\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\sigma^2\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Esa es la varianza a un paso; a \(h\) pasos se acumulan \(h\) choques independientes.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\sigma^2/(1-\phi^2)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ese es el límite para un AR(1) estacionario con \(|\phi| &amp;lt; 1\); con \(\phi = 1\) no existe.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(h^2\sigma^2\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Los choques son independientes, así que sus varianzas se suman; crece como \(h\), no como \(h^2\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u07-p08</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si la prueba de Ljung–Box sobre los residuos de un ARIMA da un valor \(p\) grande, eso garantiza que los intervalos de predicción del modelo tendrán la cobertura prometida en datos futuros.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Un valor \(p\) grande solo dice que no se detectó autocorrelación en los residuos dentro de la muestra. Los intervalos suponen además parámetros conocidos y que el futuro se comporta como el pasado. En la serie de CO₂, el SARIMA pasó la prueba y sus intervalos del 80 % cubrieron alrededor del 75 % en validación con origen móvil, porque la serie se aceleró.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p09</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para pronosticar las rentas de bicicletas de mañana a las 8 h con información hasta hoy a las 20 h (\(h = 12\)), ¿cuál de estos atributos produce &lt;strong&gt;fuga del futuro&lt;/strong&gt;?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;El clima de la hora objetivo no se conoce al pronosticar. Usarlo mejoró el MAE a 24 h casi 15 % en la libreta, pero esa mejora es una cota superior: en producción habría que usar el pronóstico meteorológico disponible en el origen, y entrenar también con pronósticos históricos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;La temperatura observada mañana a las 8 h.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Las rentas de hoy a las 20 h, \(y_t\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es el último dato conocido en el origen; es legítimo y suele ser el más útil a horizontes cortos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Si mañana es feriado.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El calendario de la hora objetivo se conoce de antemano.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Las rentas del lunes pasado a las 8 h, \(y_{t+h-168}\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Como \(h \le 168\), ese valor ya ocurrió en el origen: es un rezago legítimo.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u07-p10</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Con la estrategia &lt;strong&gt;recursiva&lt;/strong&gt;, un modelo a un paso se aplica \(h\) veces metiendo sus propios pronósticos en la ventana. ¿Por qué su error suele crecer más con el horizonte que el de la estrategia &lt;strong&gt;directa&lt;/strong&gt;?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;En \(h = 1\) ambas estrategias son el mismo modelo. A partir de ahí, la recursiva alimenta al modelo con entradas de otra distribución (pronósticos, más suaves y con error), y el error se propaga. En la libreta: MAE a 24 h de 58.6 (recursiva) contra 54.4 (directa).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Porque el modelo se entrenó con rezagos verdaderos y en la predicción recibe rezagos pronosticados, con error; los errores se acumulan.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque usa menos datos de entrenamiento que la directa.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Usa los mismos orígenes; la diferencia está en qué recibe como entrada al predecir.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque la directa entrena un solo modelo para todos los horizontes.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es al revés; la directa entrena un modelo por horizonte. La que usa un solo modelo con varias salidas es la multisalida.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque la recursiva no puede usar atributos de calendario.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Sí puede; el calendario de cada hora futura se conoce.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u07-p11</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para la pérdida cuantil \(\rho_\tau(u) = u\,(\tau - \mathbb{1}[u &amp;lt; 0])\) con \(u = y - q\), la derivada de la pérdida esperada es \(L'(q) = F(q) - \tau\). Si \(Y \sim \text{Uniforme}(0, 200)\), ¿qué pronóstico \(q\) minimiza la pérdida esperada con \(\tau = 0.9\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(L'(q) = 0\) cuando \(F(q) = \tau\). Para la uniforme en \([0, 200]\), \(F(q) = q/200 = 0.9\), así que \(q^* = 180\): el cuantil 0.9.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>180</text>
+      <tolerance>0.5</tolerance>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u07-p12</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si un modelo de LightGBM entrenado con &lt;code&gt;objective="quantile"&lt;/code&gt; para \(\tau = 0.1\) y \(\tau = 0.9\) da intervalos que en el periodo de prueba contienen solo el 64 % de los valores reales, hay un error de programación: por construcción, la cobertura debe ser 80 %.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Los cuantiles se aprenden con los datos de entrenamiento: describen la incertidumbre del pasado. Si la prueba es distinta (otra estación del año, eventos raros como un huracán, un sistema que creció), la cobertura puede quedar lejos del 80 %. Por eso la cobertura se mide en datos posteriores al entrenamiento; nunca se supone.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+</quiz>

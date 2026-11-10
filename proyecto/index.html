@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-hkbrpulz><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Proyecto integrador · Reconocimiento de Patrones</title><meta name="description" content="Reconocimiento de Patrones: curso de aprendizaje automático de la Licenciatura en Ciencias de la Computación, Universidad de Sonora."><link rel="icon" type="image/png" href="/preview/marca/favicon.png"><meta name="theme-color" content="#20305A"><link rel="stylesheet" href="/preview/_astro/Base.BBql_FVd.css"><style>.cabecera[data-astro-cid-wkn63hja]{background:var(--tinte-azul);border-bottom:1px solid var(--linea);margin-bottom:48px;padding:28px 0 44px}.migas[data-astro-cid-wkn63hja]{color:var(--suave);margin-bottom:28px;font-size:.85rem}.migas[data-astro-cid-wkn63hja] a[data-astro-cid-wkn63hja]{color:var(--tenue);text-decoration:none}.cabecera[data-astro-cid-wkn63hja] h1[data-astro-cid-wkn63hja]{margin-top:10px}.cabecera__sub[data-astro-cid-wkn63hja]{color:var(--tenue);max-width:680px;margin:12px 0 0;font-size:1.15rem}.prosa[data-astro-cid-wkn63hja]>h2:first-child{margin-top:0}
+</style></head><body data-astro-cid-hkbrpulz><div class="vista-previa" data-astro-cid-hkbrpulz>Vista previa del rediseño · no es el sitio oficial del curso</div><header class="encabezado" data-astro-cid-hkbrpulz><div class="contenedor encabezado__fila" data-astro-cid-hkbrpulz><a class="marca" href="/preview/" data-astro-cid-hkbrpulz><img src="/preview/marca/letragrama-unison.png" alt="Universidad de Sonora" width="112" height="36" data-astro-cid-hkbrpulz><span class="marca__curso" data-astro-cid-hkbrpulz>Reconocimiento<br data-astro-cid-hkbrpulz>de Patrones</span></a><div class="navegacion" data-nav data-astro-cid-hkbrpulz><button type="button" class="navegacion__boton" aria-label="Menú" aria-expanded="false" aria-controls="menu" data-astro-cid-hkbrpulz><svg class viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button><nav id="menu" data-astro-cid-hkbrpulz><a href="/preview/#unidades" class data-astro-cid-hkbrpulz>Unidades</a><a href="/preview/proyecto/" class="activo" data-astro-cid-hkbrpulz>Proyecto</a><a href="/preview/evaluacion/" class data-astro-cid-hkbrpulz>Evaluación</a><a href="/preview/recursos/" class data-astro-cid-hkbrpulz>Recursos</a></nav></div></div></header><main data-astro-cid-hkbrpulz><header class="cabecera" data-astro-cid-wkn63hja><div class="contenedor" data-astro-cid-wkn63hja><nav class="migas" data-astro-cid-wkn63hja><a href="/preview/" data-astro-cid-wkn63hja>Inicio</a> / Proyecto integrador</nav><div class="antetitulo" data-astro-cid-wkn63hja>Una competencia de Kaggle · En equipos de 1 a 3 personas · 30 % de la calificación</div><h1 data-astro-cid-wkn63hja>Proyecto integrador</h1><p class="cabecera__sub" data-astro-cid-wkn63hja>Participar en serio en una competencia de aprendizaje automático, documentarlo en un repositorio abierto y defenderlo en persona.</p></div></header><div class="contenedor" data-astro-cid-wkn63hja><article class="prosa" data-astro-cid-wkn63hja><p>En el proyecto tu equipo entra a una competencia de <a href="https://www.kaggle.com">Kaggle</a> y trata de hacerlo lo mejor posible. Lo difícil de una competencia no es entrenar un modelo, sino saber <strong>si de verdad es mejor</strong> que el anterior sin sobreajustar el <em>leaderboard</em>. Por eso, además del lugar en la tabla, se califica cómo trabajaron: cómo validaron, qué probaron, qué funcionó, qué no y por qué.</p>
+<h2 id="las-competencias">Las competencias</h2>
+<p>Escoge <strong>una</strong> de estas cuatro competencias. Son de aprendizaje automático clásico (no de modelos de lenguaje), son difíciles y usan lo que vemos en el curso.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Competencia</th><th>Datos</th><th>Métrica</th><th style="text-align:center">Unidades</th><th>Por qué</th></tr></thead><tbody><tr><td><a href="https://www.kaggle.com/competitions/rsna-knee-abnormality-detection">RSNA Knee Abnormality Detection</a></td><td>Resonancias magnéticas de rodilla</td><td>AUC ROC promedio de 12 hallazgos</td><td style="text-align:center">3, 6</td><td>Clasificación multietiqueta de imágenes médicas con redes convolucionales y transferencia. Es una competencia de código: la libreta corre en Kaggle con GPU, sin internet y en menos de 9 horas.</td></tr><tr><td><a href="https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction">ROGII: Wellbore Geology Prediction</a></td><td>Registros de pozos horizontales (rayos gamma y trayectoria)</td><td>RMSE</td><td style="text-align:center">1, 5, 7</td><td>Predecir, pie por pie, la posición geológica de un pozo a partir de su señal de rayos gamma y la de un pozo de referencia. Pide pensar con cuidado en la validación (por pozo) y en atributos de señales.</td></tr><tr><td><a href="https://www.kaggle.com/competitions/soil-grain-size-from-photos">Predicting Soil Grain Size Distributions from Images</a></td><td>Fotos de muestras de suelo</td><td>Distancia de Wasserstein (EMD) entre curvas</td><td style="text-align:center">3, 6</td><td>Predecir la curva granulométrica de un suelo a partir de fotos de celular. Hay solo 24 muestras para entrenar y la prueba usa otras cámaras: aquí la validación y el sobreajuste son el problema.</td></tr><tr><td><a href="https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra">Enveda CASMI 2026: Molecule ID from Mass Spectra</a></td><td>Espectros de masas</td><td>MRR@25</td><td style="text-align:center">3, 5, 6</td><td>Identificar una molécula a partir de su espectro: para cada espectro se propone una lista ordenada de 25 candidatas. Sigue abierta hasta el 14 de diciembre de 2026. Es una competencia de código (la libreta corre en Kaggle, sin internet, en menos de 9 horas).</td></tr></tbody></table>
+<p><strong>El lugar en la tabla.</strong> Enveda sigue abierta: tu lugar es el de tu equipo en la tabla pública el día de la entrega. Las otras tres ya cerraron, pero aceptan envíos tardíos (<em>late submissions</em>), que reciben su puntuación pública y privada aunque no aparecen en la tabla. En ese caso tu lugar es el <strong>lugar equivalente</strong>: el que tendrías en la tabla privada final con tu puntuación privada. La tabla se descarga desde la pestaña <em>Leaderboard</em>.</p>
+<h2 id="entrega">Entrega</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Cuándo</th><th>Qué se sube a Teams</th></tr></thead><tbody><tr><td>Entrega</td><td><strong>30 de noviembre de 2026</strong></td><td>Liga al repositorio <strong>público</strong> en GitHub, captura de tu mejor envío con su puntuación y captura de la tabla donde se vea tu lugar (o el lugar equivalente).</td></tr><tr><td>Defensa oral</td><td>Después de la entrega</td><td>Nada. Se agenda una cita por equipo.</td></tr></tbody></table>
+<p>Se califica el repositorio tal como está el 30 de noviembre de 2026 (el último <em>commit</em> antes de las 23:59).</p>
+<h2 id="reglas">Reglas</h2>
+<ul>
+<li><strong>Cuenta de Kaggle.</strong> El <code>README</code> dice el usuario de Kaggle de cada integrante, para poder verificar los envíos.</li>
+<li><strong>Las reglas de Kaggle se respetan.</strong> Si la competencia no permite publicar los datos, el repositorio trae un script que los descarga con la API de Kaggle en lugar de los datos.</li>
+<li><strong>Repositorio abierto</strong> en GitHub, con licencia abierta (MIT o similar). Cada integrante sube sus propios <em>commits</em>.</li>
+<li><strong>Código propio.</strong> Puedes leer y aprender de las libretas y discusiones públicas de la competencia, pero si usas una idea o un fragmento de código de alguien, lo citas con su liga. Copiar una libreta pública y enviarla no es un proyecto.</li>
+<li><strong>Uso de IA declarado</strong> en el <code>README</code>: para qué se usó y en qué partes.</li>
+</ul>
+<h2 id="qué-debe-tener-el-repositorio">Qué debe tener el repositorio</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>proyecto/</span></span>
+<span class="line"><span>├── README.md            # el reporte del proyecto (ver abajo)</span></span>
+<span class="line"><span>├── pyproject.toml       # entorno con uv (o requirements.txt con versiones)</span></span>
+<span class="line"><span>├── datos/descargar.py   # descarga los datos con la API de Kaggle</span></span>
+<span class="line"><span>├── libretas/</span></span>
+<span class="line"><span>│   ├── 01-exploracion.ipynb</span></span>
+<span class="line"><span>│   ├── 02-validacion-y-linea-base.ipynb</span></span>
+<span class="line"><span>│   ├── 03-modelos.ipynb</span></span>
+<span class="line"><span>│   └── 04-envio-final.ipynb</span></span>
+<span class="line"><span>├── src/                 # funciones reutilizables (atributos, validación, modelos)</span></span>
+<span class="line"><span>├── experimentos.csv     # bitácora: un renglón por experimento</span></span>
+<span class="line"><span>└── leaderboard/         # capturas de la tabla y de tus envíos</span></span></code></pre>
+<p>El <code>README.md</code> es el reporte. Debe contestar, en este orden:</p>
+<ol>
+<li><strong>El problema.</strong> Qué se predice, con qué datos, con qué métrica y por qué esa métrica tiene sentido para ese problema.</li>
+<li><strong>Los datos.</strong> Qué encontraron en la exploración que cambió lo que hicieron: distribuciones, faltantes, desbalance, estructura temporal o por grupos, diferencias entre entrenamiento y prueba.</li>
+<li><strong>La validación.</strong> Cómo separaron los datos para validar, por qué esa partición imita a la de la competencia, y una tabla que compare la puntuación en validación con la del <em>leaderboard</em> público en varios envíos. Si no se parecen, qué creen que pasa.</li>
+<li><strong>La línea base y la ruta de mejora.</strong> El modelo más simple razonable y cada mejora importante después, con su puntuación en validación. Incluye lo que <strong>no</strong> funcionó.</li>
+<li><strong>El modelo final.</strong> Qué es, sus hiperparámetros y cómo se eligieron, y cuánto tarda en entrenar.</li>
+<li><strong>El resultado.</strong> Puntuación del envío final (pública y privada, si la hay), lugar en la tabla o lugar equivalente, número de equipos y las capturas correspondientes.</li>
+<li><strong>Qué harían con más tiempo.</strong></li>
+<li><strong>Equipo y uso de IA.</strong> Qué hizo cada integrante y para qué usaron asistentes de IA.</li>
+<li><strong>Cómo reproducirlo.</strong> Los comandos, en orden, para pasar de un repositorio recién clonado al archivo <code>submission.csv</code>.</li>
+</ol>
+<h2 id="cómo-se-califica">Cómo se califica</h2>
+<p>El proyecto vale 100 puntos: 60 por el repositorio, 15 por el resultado en la competencia y 25 por la defensa oral.</p>
+<h3 id="repositorio-60-puntos">Repositorio (60 puntos)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Criterio</th><th style="text-align:center">Puntos</th><th>Completo</th><th>Parcial</th><th>Insuficiente</th></tr></thead><tbody><tr><td>Validación</td><td style="text-align:center">15</td><td>La partición imita a la de la competencia, sin fugas; la tabla de validación contra <em>leaderboard</em> está y se discute.</td><td>Validación razonable pero sin justificar o sin comparar con el <em>leaderboard</em>.</td><td>Se elige el modelo mirando el <em>leaderboard</em> o hay fuga de información.</td></tr><tr><td>Ruta de modelado</td><td style="text-align:center">15</td><td>Línea base, mejoras medidas una por una, bitácora completa con lo que no funcionó, búsqueda de hiperparámetros con validación.</td><td>Varios modelos sin bitácora o sin línea base.</td><td>Un solo modelo sin comparación.</td></tr><tr><td>Exploración</td><td style="text-align:center">10</td><td>Gráficas que responden preguntas concretas y conclusiones que se usan después en los atributos o la validación.</td><td>Exploración sin conclusiones.</td><td>Exploración mínima.</td></tr><tr><td>Reproducibilidad</td><td style="text-align:center">10</td><td>Se sigue el <code>README</code> y se obtiene el envío final sin tocar nada; entorno con versiones y semillas fijas.</td><td>Corre con arreglos menores.</td><td>No corre.</td></tr><tr><td>Reporte</td><td style="text-align:center">10</td><td>El <code>README</code> contesta los nueve puntos de forma clara y honesta.</td><td>Faltan puntos o es confuso.</td><td>Sin reporte.</td></tr></tbody></table>
+<h3 id="resultado-en-la-competencia-15-puntos">Resultado en la competencia (15 puntos)</h3>
+<p>Se cuenta por tu lugar (o lugar equivalente) como porcentaje del total de equipos de la tabla:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Lugar</th><th style="text-align:center">Puntos</th></tr></thead><tbody><tr><td>10 % superior</td><td style="text-align:center">15</td></tr><tr><td>25 % superior</td><td style="text-align:center">12</td></tr><tr><td>50 % superior</td><td style="text-align:center">9</td></tr><tr><td>Mejor que una línea base trivial (por ejemplo, predecir el promedio)</td><td style="text-align:center">6</td></tr><tr><td>Al menos un envío válido</td><td style="text-align:center">3</td></tr></tbody></table>
+<h3 id="defensa-oral-25-puntos-individual">Defensa oral (25 puntos, individual)</h3>
+<p>Cada integrante contesta preguntas sobre <strong>cualquier parte</strong> del repositorio, no solo la que hizo: qué hace una función, por qué se eligió una validación, qué pasaría si se cambia algo, cómo se interpreta una gráfica.</p>
+<p><strong>Si no puedes explicar lo que está en tu repositorio, asumiré que lo hizo una IA generativa y que no lo estudiaste ni intentaste entenderlo, y el proyecto completo vale cero para ti.</strong> Lo mismo aplica a la parte oral del examen intermedio. Ver <a href="/preview/evaluacion/">Evaluación</a>.</p></article></div></main><footer class="pie" data-astro-cid-hkbrpulz><div class="contenedor pie__fila" data-astro-cid-hkbrpulz><div class="pie__marca" data-astro-cid-hkbrpulz><img src="/preview/marca/buho-blanco.png" alt="" width="70" height="57" data-astro-cid-hkbrpulz><div data-astro-cid-hkbrpulz><strong data-astro-cid-hkbrpulz>Universidad de Sonora</strong><br data-astro-cid-hkbrpulz>Departamento de Matemáticas<br data-astro-cid-hkbrpulz>Licenciatura en Ciencias de la Computación</div></div><div class="pie__texto" data-astro-cid-hkbrpulz><p data-astro-cid-hkbrpulz>Material del curso Reconocimiento de Patrones, Julio Waissman. El contenido se publica bajo licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" data-astro-cid-hkbrpulz>CC BY-SA 4.0</a> y el código bajo licencia MIT.</p><p data-astro-cid-hkbrpulz><a href="https://github.com/ml-unison/ml-unison.github.io" data-astro-cid-hkbrpulz>Repositorio en GitHub</a> · <a href="mailto:julio.waissman@unison.mx" data-astro-cid-hkbrpulz>julio.waissman@unison.mx</a></p></div></div></footer><script type="module">var e=document.querySelector(`[data-nav]`),t=e.querySelector(`button`);t.addEventListener(`click`,()=>{let n=e.classList.toggle(`abierto`);t.setAttribute(`aria-expanded`,String(n))}),e.querySelectorAll(`a`).forEach(t=>t.addEventListener(`click`,()=>e.classList.remove(`abierto`)));</script></body></html>

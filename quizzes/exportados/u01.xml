@@ -1,0 +1,481 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Reconocimiento de Patrones/Unidad 1 · ¿Qué significa aprender de datos?</text>
+    </category>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p01</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿En cuál de estas situaciones &lt;strong&gt;tiene menos sentido&lt;/strong&gt; usar aprendizaje automático?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Aprender tiene sentido cuando (1) existe un patrón, (2) no sabemos describirlo analíticamente y (3) tenemos datos. En el cálculo del impuesto falla la condición (2).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Calcular el impuesto de una factura a partir de una tasa fija establecida por ley.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Hay una regla explícita y conocida; programarla directamente es más simple y exacto.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Estimar el almacenamiento de una presa a partir de lluvias y extracciones históricas.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Existe un patrón, es difícil de describir analíticamente y hay datos históricos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Detectar correos fraudulentos a partir de miles de ejemplos etiquetados.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es un caso clásico de clasificación supervisada.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Agrupar perfiles de estudiantes según su trayectoria académica.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es un problema no supervisado razonable.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p02</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Sea \(\ell\) una función de pérdida y \(\mathcal{D}=\{(\mathbf{x}_i,y_i)\}_{i=1}^n\) una muestra. ¿Cuál expresión corresponde al &lt;strong&gt;riesgo empírico&lt;/strong&gt; \(E_{\text{in}}(h)\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\mathbb{E}_{(\mathbf{x},y)\sim P}\left[\ell(h(\mathbf{x}),y)\right]\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ese es el riesgo verdadero \(E_{\text{out}}(h)\); depende de \(P\), que no conocemos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(\frac{1}{n}\sum_{i=1}^n \ell(h(\mathbf{x}_i),y_i)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\min_{h\in\mathcal{H}} \sum_{i=1}^n \ell(h(\mathbf{x}_i),y_i)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ese es el valor óptimo del problema ERM, no el riesgo de una \(h\) dada.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\Pr\left[\,|E_{\text{in}}(h)-E_{\text{out}}(h)|&amp;gt;\epsilon\,\right]\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Esa es la probabilidad que acota la desigualdad de Hoeffding.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u01-p03</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si un modelo obtiene \(E_{\text{in}} = 0\) en el conjunto de entrenamiento, entonces su error fuera de muestra también será pequeño.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. En el experimento con polinomios, el de grado 12 interpola casi todos los puntos (\(E_{\text{in}}\approx 0\)) y su \(E_{\text{out}}\) es enorme: está &lt;strong&gt;sobreajustado&lt;/strong&gt;.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u01-p04</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Un clasificador comete errores en 3 de 20 ejemplos de entrenamiento. Con la pérdida 0–1, ¿cuánto vale \(E_{\text{in}}\)? (escribe un decimal)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(E_{\text{in}} = \frac{1}{20}\sum_i \mathbb{1}[h(\mathbf{x}_i)\ne y_i] = 3/20 = 0.15\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>0.15</text>
+      <tolerance>0.001</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p05</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Dos modelos tienen el mismo error en los datos de entrenamiento. Uno es un polinomio de grado 3 y el otro de grado 12. Según la navaja de Occam, ¿cuál conviene preferir y por qué?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Un modelo simple no puede ajustarse a cualquier cosa; si aun así se ajusta a los datos, es más probable que haya capturado el patrón. Simple no significa simplista: un modelo demasiado simple tampoco sirve.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El de grado 12, porque puede representar más funciones.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Poder representar más funciones también significa poder ajustarse al ruido.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;El de grado 3, porque al ser más simple es menos probable que su buen ajuste se deba al ruido.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Da igual, porque tienen el mismo error de entrenamiento.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El error de entrenamiento no es lo que nos importa; nos importa el error en datos nuevos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El de grado 12, porque los modelos complejos siempre generalizan mejor con más datos.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con muchos datos un modelo complejo puede funcionar bien, pero aquí ambos explican igual lo observado.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u01-p06</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Un programa que guarda en una tabla todos los ejemplos de entrenamiento y responde buscando el ejemplo idéntico tiene \(E_{\text{in}} = 0\), así que es un buen modelo.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Memorizar da error cero en los datos vistos, pero ante un caso nuevo el programa no tiene nada que decir. Lo que importa es \(E_{\text{out}}\): generalizar, no memorizar.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p07</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿Cuáles de estos pasos deben ajustarse &lt;strong&gt;solo&lt;/strong&gt; con los datos de entrenamiento para evitar fuga de información?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Todo paso que &lt;strong&gt;estima parámetros&lt;/strong&gt; a partir de los datos (medias, medianas, vocabularios…) debe ajustarse con el conjunto de entrenamiento. Un &lt;code&gt;Pipeline&lt;/code&gt; de scikit-learn lo garantiza.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>false</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="33.3333" format="html">
+      <text>&lt;p&gt;Calcular la media y la desviación estándar para estandarizar.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="33.3333" format="html">
+      <text>&lt;p&gt;Imputar valores faltantes con la mediana de cada columna.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="33.3333" format="html">
+      <text>&lt;p&gt;Elegir las categorías de una codificación &lt;em&gt;one-hot&lt;/em&gt;.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="-100" format="html">
+      <text>&lt;p&gt;Convertir una columna de texto &lt;code&gt;"2024-05-01"&lt;/code&gt; a tipo fecha.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es una transformación determinista que no aprende parámetros de los datos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p08</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Estás seleccionando entre 30 configuraciones de un modelo. ¿Qué conjunto debes usar para &lt;strong&gt;compararlas&lt;/strong&gt;?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El conjunto de prueba, porque es el más parecido a producción.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Si eliges con el conjunto de prueba, su error deja de ser una estimación honesta de \(E_{\text{out}}\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Validación (un conjunto aparte o validación cruzada sobre el de entrenamiento).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El conjunto de entrenamiento completo, comparando \(E_{\text{in}}\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;\(E_{\text{in}}\) favorece a los modelos más complejos; no detecta el sobreajuste.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Cualquiera; con 30 configuraciones la diferencia es despreciable.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con más configuraciones, el sesgo de selección es &lt;strong&gt;mayor&lt;/strong&gt;, no menor.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p09</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿A qué paradigma corresponde entrenar un modelo para predecir la siguiente palabra de un texto, usando millones de textos &lt;strong&gt;sin etiquetar a mano&lt;/strong&gt;?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Las "etiquetas" (la siguiente palabra) se obtienen de los propios datos. Es la base del preentrenamiento de los modelos de lenguaje (Unidad 6).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Aprendizaje no supervisado clásico (agrupamiento).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Aprendizaje auto-supervisado.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Aprendizaje por refuerzo.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Aprendizaje supervisado con etiquetas humanas.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u01-p10</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si eliminamos de los datos la columna "sexo", un modelo de crédito ya no puede producir decisiones con sesgo de sexo.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Otras variables (ocupación, historial, patrones de compra…) pueden estar correlacionadas con el atributo eliminado y funcionar como &lt;strong&gt;variables sustitutas&lt;/strong&gt; (&lt;em&gt;proxies&lt;/em&gt;).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p11</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Al leer un archivo, &lt;code&gt;df.info()&lt;/code&gt; muestra que la columna &lt;code&gt;fecha&lt;/code&gt; es de tipo &lt;code&gt;object&lt;/code&gt; (texto). ¿Qué problema tiene dejarla así?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Hay que convertirla con &lt;code&gt;pd.to_datetime&lt;/code&gt;. Con texto, "2020/10/01" queda antes que "2020/2/01" y no existen &lt;code&gt;.dt.month&lt;/code&gt; ni &lt;code&gt;resample&lt;/code&gt;.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Ninguno; pandas convierte el texto a fecha cuando hace falta.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;pandas no lo hace automáticamente al agrupar u ordenar.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;No se puede extraer el mes ni agrupar por periodos, y el orden es alfabético, no cronológico.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Ocupa más memoria, pero los cálculos son correctos.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El problema no es la memoria; muchas operaciones con fechas no funcionan o dan resultados equivocados.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Solo es un problema si la columna tiene valores faltantes.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u01-p12</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una serie de registros diarios, si &lt;code&gt;df.isna().sum()&lt;/code&gt; da cero en todas las columnas, entonces no faltan datos.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Un día sin registro no aparece como &lt;code&gt;NaN&lt;/code&gt;: simplemente no está la fila. Hay que comparar contra el rango completo de fechas, por ejemplo con &lt;code&gt;reindex(pd.date_range(...))&lt;/code&gt;.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p13</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Unes una tabla de 11,533 registros diarios con un catálogo de presas usando &lt;code&gt;merge&lt;/code&gt; por la clave de la presa. El resultado tiene 12,800 filas. ¿Qué pasó?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Si una clave está repetida en la tabla derecha, cada registro de la izquierda con esa clave se multiplica. Por eso conviene usar &lt;code&gt;validate="many_to_one"&lt;/code&gt; y comparar el número de filas antes y después.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Nada raro; &lt;code&gt;merge&lt;/code&gt; siempre agrega filas.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Una unión izquierda contra un catálogo con claves únicas conserva el número de filas.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Alguna clave aparece más de una vez en el catálogo, y sus registros se duplicaron.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Había valores faltantes en la columna de almacenamiento.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Los faltantes en otras columnas no cambian el número de filas de la unión.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;pandas agregó filas para las fechas faltantes.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;&lt;code&gt;merge&lt;/code&gt; no inventa fechas; eso lo haría un &lt;code&gt;reindex&lt;/code&gt;.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u01-p14</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En un conjunto de datos de casas, la columna "calidad de la cocina" toma los valores &lt;em&gt;Excelente&lt;/em&gt;, &lt;em&gt;Buena&lt;/em&gt;, &lt;em&gt;Regular&lt;/em&gt; y &lt;em&gt;Mala&lt;/em&gt;. ¿Qué codificación es más adecuada para un modelo lineal?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Cuando las categorías tienen un orden con sentido, una codificación ordinal conserva esa información en una sola columna. One-hot es la opción para categorías &lt;strong&gt;sin&lt;/strong&gt; orden (barrio, color, tipo de techo).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;One-hot, porque es una variable categórica.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Funciona, pero desperdicia el orden natural de las categorías.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Ordinal (Mala = 0, Regular = 1, Buena = 2, Excelente = 3), porque las categorías tienen un orden.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Dejarla como texto; el modelo aprende el orden solo.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Los modelos de scikit-learn requieren números.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Eliminarla, porque las variables categóricas no aportan información.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u01-p15</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En el conjunto de casas, la columna "calidad de la alberca" tiene 99 % de valores faltantes, así que lo correcto es imputarlos con la categoría más frecuente.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Ahí el faltante &lt;strong&gt;significa algo&lt;/strong&gt;: la casa no tiene alberca. Lo correcto es codificarlo como su propia categoría ("sin alberca"). Antes de imputar hay que preguntarse por qué falta el dato.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u01-p16</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Estandarizas una columna con media 50 y desviación estándar 4, calculadas en el conjunto de entrenamiento. ¿Qué valor queda para un ejemplo de prueba con valor 58?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(z = (58 - 50)/4 = 2\). La media y la desviación son las del &lt;strong&gt;entrenamiento&lt;/strong&gt;: el conjunto de prueba se transforma con los mismos parámetros, nunca con los suyos.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>2</text>
+      <tolerance>0.001</tolerance>
+    </answer>
+  </question>
+</quiz>

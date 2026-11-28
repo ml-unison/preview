@@ -1,0 +1,443 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Reconocimiento de Patrones/Unidad 4 · Modelos lineales</text>
+    </category>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p01</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En mínimos cuadrados, \(\hat{\mathbf{y}} = X\mathbf{w}_{\text{lin}}\). ¿Qué propiedad tiene el vector de residuos \(\mathbf{y} - \hat{\mathbf{y}}\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Las ecuaciones normales son \(X^\top(\mathbf{y} - X\mathbf{w}) = 0\): \(\hat{\mathbf{y}}\) es la proyección ortogonal de \(\mathbf{y}\) sobre el espacio columna de \(X\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Es ortogonal a cada columna de \(X\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Tiene todas sus entradas iguales a cero.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso solo pasa si \(\mathbf{y}\) está en el espacio columna de \(X\), es decir, si el ajuste es perfecto.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Es paralelo a \(\hat{\mathbf{y}}\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Es al revés; el residuo es perpendicular a \(\hat{\mathbf{y}}\), que vive en el espacio columna.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Su norma es igual a la de \(\mathbf{y}\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Por Pitágoras, \(\lVert\mathbf{y}\rVert^2 = \lVert\hat{\mathbf{y}}\rVert^2 + \lVert\mathbf{y}-\hat{\mathbf{y}}\rVert^2\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u04-p02</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;La matriz sombrero \(H = X(X^\top X)^{-1}X^\top\) de un modelo con intersección y 5 atributos, ajustado con 200 datos, ¿qué traza tiene?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\operatorname{tr} H = \operatorname{tr}\big((X^\top X)^{-1}X^\top X\big) = \operatorname{tr} I_{d+1} = d + 1 = 6\).&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>6</text>
+      <tolerance>0</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p03</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Si \(\kappa(X) = 1000\), ¿cuál es el número de condición de \(X^\top X\)?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(\kappa(X^\top X) = \kappa(X)^2\). Por eso se prefiere resolver con QR o SVD de \(X\) en lugar de las ecuaciones normales.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(10^6\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(1000\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Los valores singulares de \(X^\top X\) son los cuadrados de los de \(X\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(\sqrt{1000}\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Formar \(X^\top X\) empeora el condicionamiento, no lo mejora.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Depende de \(N\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Depende solo de los valores singulares de \(X\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u04-p04</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Estandarizar los atributos cambia las predicciones de la regresión lineal por mínimos cuadrados (con intersección y sin regularización).&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Falso. Es una reparametrización afín: el espacio columna no cambia y \(\hat{\mathbf{y}}\) tampoco. Lo que cambia es el número de condición y, con él, la velocidad del descenso por gradiente.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p05</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para predecir rentas de bicicletas por hora, ¿por qué conviene codificar la hora del día con &lt;em&gt;one-hot&lt;/em&gt; en lugar de usarla como un número?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Porque el efecto de la hora no es lineal; con one-hot cada hora tiene su propio nivel.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque one-hot reduce el número de parámetros.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Al contrario, pasa de 1 a 23 columnas.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque la regresión lineal no acepta enteros.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Los acepta; el problema es que impone una relación lineal con la hora.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Porque así el modelo deja de ser lineal.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Sigue siendo lineal en los parámetros; lo que cambia es la transformación de los datos.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u04-p06</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En una regresión logística, el coeficiente de una variable es \(w_j = 0.7\). ¿Por cuánto se multiplican los momios cuando la variable sube una unidad? (dos decimales)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;La razón de momios es \(e^{0.7} \approx 2.01\): los momios casi se duplican.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>2.01</text>
+      <tolerance>0.01</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p07</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿Qué pasa al ajustar una regresión logística &lt;strong&gt;sin regularización&lt;/strong&gt; a datos linealmente separables?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;El estimador de máxima verosimilitud no existe y \(\lVert\mathbf{w}\rVert\) crece sin límite.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Se obtiene la frontera de margen máximo.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Esa es la SVM; la logística sin regularizar no converge a un punto.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El método de Newton converge en una iteración.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Newton sigue iterando y \(\lVert\mathbf{w}\rVert\) crece en cada paso.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;La entropía cruzada alcanza exactamente cero.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Tiende a cero, pero no lo alcanza con ningún \(\mathbf{w}\) finito.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p08</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Para un modelo lineal generalizado con liga canónica, ¿cuál es el gradiente de la log-verosimilitud?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Con \(\ell = \sum_n [y_n \eta_n - A(\eta_n)]\) y \(A'(\eta) = \mu\), la regla de la cadena da \(X^\top(\mathbf{y} - \boldsymbol\mu)\) para normal, Bernoulli y Poisson.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;\(X^\top(\mathbf{y} - \boldsymbol\mu)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(X^\top X\mathbf{w} - X^\top\mathbf{y}\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ese es el caso particular (con el signo de la pérdida) de la regresión lineal, donde \(\boldsymbol\mu = X\mathbf{w}\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\((\mathbf{y} - \boldsymbol\mu)^\top(\mathbf{y} - \boldsymbol\mu)\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso es un escalar, la suma de cuadrados.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;\(X^\top \operatorname{diag}(\boldsymbol\mu) X\)&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso se parece a la hessiana (con signo negativo) de la regresión de Poisson.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p09</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;¿Por qué la regresión de Poisson es más adecuada que la lineal para conteos como las rentas de bicicletas por hora?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Predice medias positivas y su varianza crece con la media.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Tiene solución en forma cerrada.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;No la tiene; se ajusta con Newton (IRLS).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Usa menos parámetros.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con los mismos atributos usa los mismos parámetros.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Siempre tiene menor error cuadrático en entrenamiento.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Mínimos cuadrados minimiza justamente el error cuadrático en entrenamiento.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p10</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En el análisis discriminante lineal (LDA), ¿qué supuesto hace que la frontera entre clases sea lineal?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Con \(\Sigma\) común, el término \(\mathbf{x}^\top\Sigma^{-1}\mathbf{x}\) es el mismo para todas las clases y se cancela al comparar. Con covarianzas distintas (QDA) no se cancela y la frontera es cuadrática.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Que todas las clases comparten la misma matriz de covarianza.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que las clases tienen la misma probabilidad previa.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Las previas solo desplazan la frontera; no la curvan.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que los atributos son independientes dentro de cada clase.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Ese es el supuesto de Bayes ingenuo.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Que los datos son linealmente separables.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;LDA no necesita datos separables.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p11</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;En Bayes ingenuo multinomial para texto, una palabra aparece 50 veces en mensajes normales y nunca en spam. Sin suavizado, ¿qué pasa con un mensaje nuevo que la contiene?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;El suavizado de Laplace, \(\hat\theta_{yj} = (N_{yj} + \alpha)/(N_y + \alpha V)\), evita que un solo cero vete una clase.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Su probabilidad de ser spam es exactamente cero, sin importar las demás palabras.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text />
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;La palabra se ignora.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Al contrario, domina todo el producto.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El modelo lo clasifica como spam.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con \(\hat\theta_{\text{spam}} = 0\), el producto para spam se anula.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;El logaritmo vale cero y no afecta.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El logaritmo de cero es \(-\infty\).&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+  <question type="truefalse">
+    <name>
+      <text>u04-p12</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;La razón de log-posteriores de Bayes ingenuo multinomial es una función lineal de los conteos de palabras, la misma forma que la regresión logística.&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;Verdadero: \(\ln\frac{P(1\mid\mathbf{x})}{P(0\mid\mathbf{x})} = b + \sum_j x_j w_j\) con \(w_j = \ln(\hat\theta_{1j}/\hat\theta_{0j})\). Cambia la forma de estimar los pesos: por conteo en Bayes ingenuo y conjuntamente en la logística.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>true</text>
+    </answer>
+    <answer fraction="0" format="moodle_auto_format">
+      <text>false</text>
+    </answer>
+  </question>
+  <question type="numerical">
+    <name>
+      <text>u04-p13</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Una SVM de margen duro entrenada con 400 datos tiene 12 vectores de soporte. ¿Cuál es la cota superior del error de dejar-uno-fuera? (decimal)&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text>&lt;p&gt;\(E_{\text{cv}} \le \#\text{VS}/N = 12/400 = 0.03\). Quitar un punto que no es vector de soporte no cambia la solución, y ese punto queda bien clasificado.&lt;/p&gt;</text>
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <answer fraction="100" format="moodle_auto_format">
+      <text>0.03</text>
+      <tolerance>0.0001</tolerance>
+    </answer>
+  </question>
+  <question type="multichoice">
+    <name>
+      <text>u04-p14</text>
+    </name>
+    <questiontext format="html">
+      <text>&lt;p&gt;Con una SVM de kernel gaussiano \(K(\mathbf{x},\mathbf{x}') = e^{-\gamma\lVert\mathbf{x}-\mathbf{x}'\rVert^2}\), el error de validación cruzada es mucho mayor que el de entrenamiento y casi todos los puntos son vectores de soporte. ¿Qué conviene probar?&lt;/p&gt;</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text />
+    </generalfeedback>
+    <defaultgrade>1</defaultgrade>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html">
+      <text>&lt;p&gt;Reducir \(\gamma\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Con \(\gamma\) grande cada vector de soporte influye solo en su vecindad: sobreajuste.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Aumentar \(\gamma\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Eso hace la frontera todavía más local.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Aumentar \(C\).&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;Un \(C\) mayor castiga más los errores de entrenamiento; agrava el sobreajuste.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+    <answer fraction="0" format="html">
+      <text>&lt;p&gt;Quitar la estandarización de los atributos.&lt;/p&gt;</text>
+      <feedback format="html">
+        <text>&lt;p&gt;El kernel gaussiano depende de distancias; sin escalar, un atributo domina.&lt;/p&gt;</text>
+      </feedback>
+    </answer>
+  </question>
+</quiz>
